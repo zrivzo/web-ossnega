@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pengumuman Kelolosan OSSIM MTSN 3 TULUNGAGUNG - 2025</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- Konfeti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        :root {
+            --primary-blue: #13265C;
+            --success-green: #10B981;
+            --danger-red: #EF4444;
+            --light-gray: #F3F4F6;
+            --dark-gray: #6B7280;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: background-color 0.5s ease;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(19, 38, 92, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #0e1e45;
+        }
+        
+        .btn-success {
+            background-color: var(--success-green);
+        }
+        
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-red);
+        }
+        
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .result {
+            text-align: center;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .result.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success-green);
+            color: #065F46;
+        }
+        
+        .result.fail {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-red);
+            color: #7F1D1D;
+        }
+        
+        .result h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .result p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(19, 38, 92, 0.1);
+            border-left-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        .error-message {
+            color: var(--danger-red);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .id-search-result {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(19, 38, 92, 0.05);
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .id-search-result p {
+            margin-bottom: 5px;
+        }
+        
+        .back-btn {
+            margin-top: 20px;
+            background-color: var(--dark-gray);
+        }
+        
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .result h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <div class="header">
+            <div class="logo">
+                <img src="https://files.catbox.moe/xz0joi.png" alt="Logo OSIS">
+            </div>
+            <h1>Portal Pengumuman Kelolosan OSIM</h1>
+            <p>MTSN 3 TULUNGAGUNG - Tahun 2025</p>
+        </div>
+        
+        <div class="content" id="login-section">
+            <p class="welcome-text" style="text-align: center; margin-bottom: 20px;">
+                Selamat datang di Portal Pengumuman Kelolosan OSIM MTSN 3 TULUNGAGUNG Tahun 2025
+            </p>
+            
+            <div class="form-group">
+                <label for="username">Masukkan ID Peserta</label>
+                <input type="text" id="username" class="form-control" placeholder="Contoh: 2301">
+            </div>
+            
+            <button id="login-btn" class="btn">Lihat Pengumuman</button>
+            
+            <div class="error-message" id="login-error"></div>
+            
+            <div class="divider">
+                <span>atau</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="search-name">Belum tahu Nomor Identitas kamu? Tulis nama lengkapmu di sini</label>
+                <input type="text" id="search-name" class="form-control" placeholder="Masukkan nama lengkap">
+            </div>
+            
+            <button id="search-btn" class="btn">Cari ID</button>
+            
+            <div class="id-search-result" id="id-search-result">
+                <!-- Hasil pencarian ID akan ditampilkan di sini -->
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Memproses data...</p>
+        </div>
+        
+        <div class="result" id="result-section">
+            <!-- Hasil pengumuman akan ditampilkan di sini -->
+        </div>
+    </div>
+
+    <script>
+        // Data peserta (embedded dalam file JS)
+        const pesertaData = [
+            { "username": "2301", "nama": "Zam Zam", "status": "Lolos" },
+            { "username": "2302", "nama": "Asyifa", "status": "Tidak Lolos" },
+            { "username": "2303", "nama": "Fahreza", "status": "Lolos" },
+            { "username": "2304", "nama": "Yusfi", "status": "Lolos" },
+            { "username": "2305", "nama": "Budi Santoso", "status": "Tidak Lolos" },
+            { "username": "2306", "nama": "Maya Sari", "status": "Lolos" },
+            { "username": "2307", "nama": "Ahmad Fauzi", "status": "Tidak Lolos" },
+            { "username": "2308", "nama": "Dewi Lestari", "status": "Lolos" }
+        ];
+
+        // DOM Elements
+        const loginSection = document.getElementById('login-section');
+        const loadingSection = document.getElementById('loading');
+        const resultSection = document.getElementById('result-section');
+        const loginBtn = document.getElementById('login-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const usernameInput = document.getElementById('username');
+        const searchNameInput = document.getElementById('search-name');
+        const loginError = document.getElementById('login-error');
+        const idSearchResult = document.getElementById('id-search-result');
+
+        // Event Listeners
+        loginBtn.addEventListener('click', handleLogin);
+        searchBtn.addEventListener('click', handleSearch);
+        
+        // Enter key support
+        usernameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+        
+        searchNameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        // Fungsi untuk menangani login
+        function handleLogin() {
+            const username = usernameInput.value.trim();
+            
+            if (!username) {
+                showError('Masukkan ID peserta terlebih dahulu');
+                return;
+            }
+            
+            showLoading();
+            
+            // Simulasi loading
+            setTimeout(() => {
+                const peserta = pesertaData.find(p => p.username === username);
+                
+                if (peserta) {
+                    showResult(peserta);
+                } else {
+                    showError('ID tidak ditemukan');
+                    hideLoading();
+                }
+            }, 1500);
+        }
+
+        // Fungsi untuk menangani pencarian ID berdasarkan nama
+        function handleSearch() {
+            const nama = searchNameInput.value.trim();
+            
+            if (!nama) {
+                showIdSearchResult('Masukkan nama lengkap terlebih dahulu', false);
+                return;
+            }
+            
+            // Mencari peserta berdasarkan nama (case insensitive)
+            const hasilPencarian = pesertaData.filter(p => 
+                p.nama.toLowerCase().includes(nama.toLowerCase())
+            );
+            
+            if (hasilPencarian.length > 0) {
+                let html = '<p><strong>Hasil Pencarian:</strong></p>';
+                hasilPencarian.forEach(p => {
+                    html += `<p>Nama: ${p.nama} - ID: ${p.username}</p>`;
+                });
+                showIdSearchResult(html, true);
+            } else {
+                showIdSearchResult('Nama tidak ditemukan dalam data peserta', false);
+            }
+        }
+
+        // Fungsi untuk menampilkan hasil pencarian ID
+        function showIdSearchResult(message, isSuccess) {
+            idSearchResult.innerHTML = message;
+            idSearchResult.style.display = 'block';
+            idSearchResult.style.backgroundColor = isSuccess ? 
+                'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+            idSearchResult.style.border = isSuccess ? 
+                '1px solid #10B981' : '1px solid #EF4444';
+            idSearchResult.style.color = isSuccess ? '#065F46' : '#7F1D1D';
+        }
+
+        // Fungsi untuk menampilkan loading
+        function showLoading() {
+            loginSection.style.display = 'none';
+            resultSection.style.display = 'none';
+            loadingSection.style.display = 'block';
+            loginError.style.display = 'none';
+        }
+
+        // Fungsi untuk menyembunyikan loading
+        function hideLoading() {
+            loadingSection.style.display = 'none';
+            loginSection.style.display = 'block';
+        }
+
+        // Fungsi untuk menampilkan error
+        function showError(message) {
+            loginError.textContent = message;
+            loginError.style.display = 'block';
+        }
+
+        // Fungsi untuk menampilkan hasil
+        function showResult(peserta) {
+            const isLolos = peserta.status === 'Lolos';
+            
+            // Set warna berdasarkan status
+            if (isLolos) {
+                resultSection.className = 'result success';
+                document.body.style.backgroundColor = 'rgba(16, 185, 129, 0.05)';
+            } else {
+                resultSection.className = 'result fail';
+                document.body.style.backgroundColor = 'rgba(239, 68, 68, 0.05)';
+            }
+            
+            // Konten hasil
+            let html = '';
+            
+            if (isLolos) {
+                html = `
+                    <h2>SELAMAT ${peserta.nama.toUpperCase()}! 🎉</h2>
+                    <p>Anda dinyatakan <strong>Lolos</strong> Seleksi OSIM MTSN 3 TULUNGAGUNG</p>
+                    <p><strong>Petunjuk tahap selanjutnya:</strong></p>
+                    <p>1. Pantau Informasi Selanjutnya Lewat Grup</p>
+                    <p>2. Walau lolos, Tetap rendah hati</p>
+                    <p>4. Siapkan diri untuk sesi wawancara lanjutan</p>
+                `;
+                
+                // Trigger efek konfeti
+                triggerConfetti();
+            } else {
+                html = `
+                    <h2>Terima kasih ${peserta.nama}! ❤️</h2>
+                    <p>Kamu belum lolos kali ini, tapi semangatmu luar biasa!</p>
+                    <p>Jangan menyerah, masih banyak kesempatan berharga menantimu di MTSN 3 TULUNGAGUNG ini.</p>
+                    <p>Teruslah berkontribusi dan berprestasi dalam kegiatan lainnya!</p>
+                `;
+            }
+            
+            html += `<button class="btn back-btn" id="back-btn">Kembali ke Login</button>`;
+            
+            resultSection.innerHTML = html;
+            resultSection.style.display = 'block';
+            loadingSection.style.display = 'none';
+            
+            // Event listener untuk tombol kembali
+            document.getElementById('back-btn').addEventListener('click', () => {
+                resetForm();
+            });
+        }
+
+        // Fungsi untuk mereset form
+        function resetForm() {
+            loginSection.style.display = 'block';
+            resultSection.style.display = 'none';
+            usernameInput.value = '';
+            searchNameInput.value = '';
+            loginError.style.display = 'none';
+            idSearchResult.style.display = 'none';
+            document.body.style.backgroundColor = '#F3F4F6';
+        }
+
+        // Fungsi untuk efek konfeti
+        function triggerConfetti() {
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+            
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+                
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+                
+                const particleCount = 50 * (timeLeft / duration);
+                
+                // Konfeti dari kiri
+                confetti({
+                    ...defaults,
+                    particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                });
+                
+                // Konfeti dari kanan
+                confetti({
+                    ...defaults,
+                    particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                });
+            }, 250);
+        }
+
+        // Inisialisasi Feather Icons
+        feather.replace();
+    </script>
+</body>
+</html>

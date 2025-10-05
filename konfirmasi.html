@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pendaftaran Rekrutmen OSIM MTsN 3 Tulungagung 2025</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        :root {
+            --primary-blue: #13265C;
+            --success-green: #10B981;
+            --danger-red: #EF4444;
+            --light-gray: #F3F4F6;
+            --dark-gray: #6B7280;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: background-color 0.5s ease;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.5s ease;
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(19, 38, 92, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #0e1e45;
+        }
+        
+        .btn-success {
+            background-color: var(--success-green);
+        }
+        
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-red);
+        }
+        
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .result {
+            text-align: center;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .result.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success-green);
+            color: #065F46;
+        }
+        
+        .result.fail {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-red);
+            color: #7F1D1D;
+        }
+        
+        .result h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .result p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(19, 38, 92, 0.1);
+            border-left-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        .error-message {
+            color: var(--danger-red);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .id-search-result {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(19, 38, 92, 0.05);
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .id-search-result p {
+            margin-bottom: 5px;
+        }
+        
+        .back-btn {
+            margin-top: 20px;
+            background-color: var(--dark-gray);
+        }
+        
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .data-table th, .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .data-table th {
+            background-color: var(--primary-blue);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background-color: rgba(19, 38, 92, 0.05);
+        }
+        
+        .data-table tr:hover {
+            background-color: rgba(19, 38, 92, 0.1);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--dark-gray);
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .result h2 {
+                font-size: 1.5rem;
+            }
+            
+            .data-table {
+                font-size: 0.8rem;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <div class="header">
+            <div class="logo">
+                <img src="https://files.catbox.moe/xz0joi.png" alt="Logo OSIM">
+            </div>
+            <h1>Data Pendaftaran Rekrutmen OSIM</h1>
+            <p>MTsN 3 Tulungagung - Tahun 2025</p>
+        </div>
+        
+        <div class="content" id="login-section">
+            <p class="welcome-text" style="text-align: center; margin-bottom: 20px;">
+                Selamat datang di Portal Pengecekan Data Peserta Rekrutmen OSIM MTsN 3 Tulungagung 2025
+            </p>
+            
+            <div class="form-group">
+                <label for="username">Cari dengan ID Peserta</label>
+                <input type="text" id="username" class="form-control" placeholder="Contoh: 001, 002, 003">
+            </div>
+            
+            <button id="login-btn" class="btn">Cek Data</button>
+            
+            <div class="error-message" id="login-error"></div>
+            
+            <div class="divider">
+                <span>atau</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="search-name">Cari dengan Nama Lengkap</label>
+                <input type="text" id="search-name" class="form-control" placeholder="Masukkan nama lengkap">
+            </div>
+            
+            <button id="search-btn" class="btn">Cari Nama</button>
+            
+            <div class="divider">
+                <span>atau</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="search-class">Lihat Data Berdasarkan Kelas</label>
+                <select id="search-class" class="form-control">
+                    <option value="">Pilih Kelas</option>
+                    <option value="7A">Kelas 7A</option>
+                    <option value="7B">Kelas 7B</option>
+                    <option value="7C">Kelas 7C</option>
+                    <option value="7D">Kelas 7D</option>
+                    <option value="7E">Kelas 7E</option>
+                    <option value="7F">Kelas 7F</option>
+                    <option value="7G">Kelas 7G</option>
+                    <option value="7H">Kelas 7H</option>
+                    <option value="7I">Kelas 7I</option>
+                    <option value="7J">Kelas 7J</option>
+                    <option value="7K">Kelas 7K</option>
+                    <option value="8A">Kelas 8A</option>
+                </select>
+            </div>
+            
+            <button id="class-btn" class="btn">Lihat Data Kelas</button>
+            
+            <div class="id-search-result" id="id-search-result">
+                <!-- Hasil pencarian ID akan ditampilkan di sini -->
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Memproses data...</p>
+        </div>
+        
+        <div class="result" id="result-section">
+            <!-- Hasil pengecekan data akan ditampilkan di sini -->
+        </div>
+        
+        <table class="data-table" id="class-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Lengkap</th>
+                    <th>Kelas</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="class-table-body">
+                <!-- Data kelas akan ditampilkan di sini -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="copyright">
+        © Sie Media dan IT, 2025
+    </div>
+
+    <script>
+        // Data peserta (embedded dalam file JS)
+        const pesertaData = [
+            { "username": "001", "nama": "Muhammad Iqbal", "kelas": "7A", "keterangan": "Terdaftar" },
+            { "username": "002", "nama": "Nayra Azzahra", "kelas": "7A", "keterangan": "Terdaftar" },
+            { "username": "003", "nama": "Tasyakurnia", "kelas": "7A", "keterangan": "Terdaftar" },
+            { "username": "004", "nama": "Thalita Putri", "kelas": "7A", "keterangan": "Terdaftar" },
+            { "username": "005", "nama": "Mohammad Noval", "kelas": "7B", "keterangan": "Terdaftar" },
+            { "username": "006", "nama": "Muhammad Rofa'i", "kelas": "7B", "keterangan": "Terdaftar" },
+            { "username": "007", "nama": "Safa Aprilia", "kelas": "7B", "keterangan": "Terdaftar" },
+            { "username": "008", "nama": "Azzahra Eka", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "009", "nama": "Bellya Afika", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "010", "nama": "Frishka Ussisa", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "011", "nama": "Habibah Dewi", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "012", "nama": "Imelda Sesa", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "013", "nama": "Khaira Acyuta", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "014", "nama": "Luaiyin", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "015", "nama": "Muhammad Faaiq", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "016", "nama": "Muhammad Zidan", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "017", "nama": "Najuwa Adinda", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "018", "nama": "Ndaru Diyah", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "019", "nama": "Rahmatul Laili", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "020", "nama": "Risa Nur Meida", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "021", "nama": "Suci Dwi", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "022", "nama": "Vania Cahya", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "023", "nama": "Zhafira Khansa", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "024", "nama": "Ambar Zulfa", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "025", "nama": "Arka Arkhananta", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "026", "nama": "Aura Ayu", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "027", "nama": "Azzahra Syaila", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "028", "nama": "Balqis Amira", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "029", "nama": "Citra Zahrotus", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "030", "nama": "Feby Aulia", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "031", "nama": "Kenzie Attarrizky", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "032", "nama": "Muhammad Arzaky", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "033", "nama": "Muhammad Evan", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "034", "nama": "Nisrinna Rana", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "035", "nama": "Reihan Aima", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "036", "nama": "Satria Arka", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "037", "nama": "Zahira Adamma", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "038", "nama": "Afika Fadiya", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "039", "nama": "Anindy Cantika", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "040", "nama": "Azka Gibran", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "041", "nama": "Berliana Asyifa", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "042", "nama": "Chintya Bunga", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "043", "nama": "Cindy Putri", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "044", "nama": "Dwi Ayu", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "045", "nama": "Eva Latifatun", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "046", "nama": "Fajarina Eka", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "047", "nama": "Himma Muhibbatur", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "048", "nama": "Servino Agustino", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "049", "nama": "Aqila Putri", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "050", "nama": "Avika Tsania", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "051", "nama": "Caesya Tania", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "052", "nama": "Inggit Najwa", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "053", "nama": "Izzana Ulfi", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "054", "nama": "Moch Naufal", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "055", "nama": "Nila Khoirul", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "056", "nama": "Anindya Ayunda Sari", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "057", "nama": "Berlian Ayu", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "058", "nama": "Muhammad Waffa", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "059", "nama": "Muhammad Wafi", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "060", "nama": "Natasya Nur Alia", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "061", "nama": "Thoriq Ezar", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "062", "nama": "Afifah Rohmi", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "063", "nama": "Afika Nazilatuz", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "064", "nama": "Aurelia Zahrotul", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "065", "nama": "Caesar Dzaki", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "066", "nama": "Elsafa Septania", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "067", "nama": "Fitra Kurnia", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "068", "nama": "Keisha Azka", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "069", "nama": "Kevin Andika", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "070", "nama": "Lavinia Salsabila", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "071", "nama": "Muhammad Axel", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "072", "nama": "Muhammad Fatih", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "073", "nama": "Ratu Aqiela", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "074", "nama": "Shifa Ainun", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "075", "nama": "Tsanindya Samara", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "076", "nama": "Ahmad Rehan", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "077", "nama": "Dian Aisyah", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "078", "nama": "Dochi Aprilio", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "079", "nama": "Lintang Tryas", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "080", "nama": "Melisya Fanesa", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "081", "nama": "Muhammad Azmi", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "082", "nama": "Nayko Prastuti", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "083", "nama": "Zazang Elga", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "084", "nama": "Alya Dewina", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "085", "nama": "Anggita Najwa", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "086", "nama": "Arisca Mayfa", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "087", "nama": "Dea Tri", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "088", "nama": "Lis Farizarotul", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "089", "nama": "Mika Lusiana", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "090", "nama": "Muhammad Khanza", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "091", "nama": "Muhammad Zydan", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "092", "nama": "Naufal Aprilia", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "093", "nama": "Naura Khayla", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "094", "nama": "Pamela Cinta", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "095", "nama": "Syifa Khanza", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "096", "nama": "Tsania Lutfia", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "097", "nama": "Afika Nayla", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "098", "nama": "Iqbal Pradana", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "099", "nama": "Muhammad Handika", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "100", "nama": "Muhammad Razyazka", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "101", "nama": "Nabil Qiswa", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "102", "nama": "Qoirun Nikmah", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "103", "nama": "Rafael Kenzo", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "104", "nama": "Moch Julian", "kelas": "8A", "keterangan": "Terdaftar" },
+            { "username": "105", "nama": "Muhammad Nazril", "kelas": "8A", "keterangan": "Terdaftar" }
+        ];
+
+        // DOM Elements
+        const loginSection = document.getElementById('login-section');
+        const loadingSection = document.getElementById('loading');
+        const resultSection = document.getElementById('result-section');
+        const classTable = document.getElementById('class-table');
+        const classTableBody = document.getElementById('class-table-body');
+        const loginBtn = document.getElementById('login-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const classBtn = document.getElementById('class-btn');
+        const usernameInput = document.getElementById('username');
+        const searchNameInput = document.getElementById('search-name');
+        const searchClassSelect = document.getElementById('search-class');
+        const loginError = document.getElementById('login-error');
+        const idSearchResult = document.getElementById('id-search-result');
+
+        // Event Listeners
+        loginBtn.addEventListener('click', handleLogin);
+        searchBtn.addEventListener('click', handleSearch);
+        classBtn.addEventListener('click', handleClassSearch);
+        
+        // Enter key support
+        usernameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+        
+        searchNameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        // Fungsi untuk menangani pencarian dengan ID
+        function handleLogin() {
+            const username = usernameInput.value.trim();
+            
+            if (!username) {
+                showError('Masukkan ID peserta terlebih dahulu');
+                return;
+            }
+            
+            showLoading();
+            
+            // Simulasi loading
+            setTimeout(() => {
+                const peserta = pesertaData.find(p => p.username === username);
+                
+                if (peserta) {
+                    showResult(peserta);
+                } else {
+                    showError('ID tidak ditemukan');
+                    hideLoading();
+                }
+            }, 1000);
+        }
+
+        // Fungsi untuk menangani pencarian berdasarkan nama
+        function handleSearch() {
+            const nama = searchNameInput.value.trim();
+            
+            if (!nama) {
+                showIdSearchResult('Masukkan nama lengkap terlebih dahulu', false);
+                return;
+            }
+            
+            // Mencari peserta berdasarkan nama (case insensitive)
+            const hasilPencarian = pesertaData.filter(p => 
+                p.nama.toLowerCase().includes(nama.toLowerCase())
+            );
+            
+            if (hasilPencarian.length > 0) {
+                let html = '<p><strong>Hasil Pencarian:</strong></p>';
+                hasilPencarian.forEach(p => {
+                    html += `<p>Nama: ${p.nama} - ID: ${p.username} - Kelas: ${p.kelas}</p>`;
+                });
+                showIdSearchResult(html, true);
+            } else {
+                showIdSearchResult('Nama tidak ditemukan dalam data peserta', false);
+            }
+        }
+
+        // Fungsi untuk menangani pencarian berdasarkan kelas
+        function handleClassSearch() {
+            const kelas = searchClassSelect.value;
+            
+            if (!kelas) {
+                showIdSearchResult('Pilih kelas terlebih dahulu', false);
+                return;
+            }
+            
+            // Mencari peserta berdasarkan kelas
+            const hasilPencarian = pesertaData.filter(p => p.kelas === kelas);
+            
+            if (hasilPencarian.length > 0) {
+                // Tampilkan tabel
+                classTableBody.innerHTML = '';
+                hasilPencarian.forEach(p => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${p.username}</td>
+                        <td>${p.nama}</td>
+                        <td>${p.kelas}</td>
+                        <td>${p.keterangan}</td>
+                    `;
+                    classTableBody.appendChild(row);
+                });
+                
+                // Sembunyikan elemen lain dan tampilkan tabel
+                loginSection.style.display = 'none';
+                resultSection.style.display = 'none';
+                idSearchResult.style.display = 'none';
+                classTable.style.display = 'table';
+                
+                // Tambahkan tombol kembali
+                const backButton = document.createElement('button');
+                backButton.textContent = 'Kembali ke Pencarian';
+                backButton.className = 'btn back-btn';
+                backButton.style.marginTop = '20px';
+                backButton.addEventListener('click', resetForm);
+                
+                // Tambahkan tombol ke container
+                const container = document.getElementById('main-container');
+                if (!document.getElementById('back-from-class')) {
+                    backButton.id = 'back-from-class';
+                    container.appendChild(backButton);
+                }
+            } else {
+                showIdSearchResult('Tidak ada peserta ditemukan untuk kelas ini', false);
+            }
+        }
+
+        // Fungsi untuk menampilkan hasil pencarian ID
+        function showIdSearchResult(message, isSuccess) {
+            idSearchResult.innerHTML = message;
+            idSearchResult.style.display = 'block';
+            idSearchResult.style.backgroundColor = isSuccess ? 
+                'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+            idSearchResult.style.border = isSuccess ? 
+                '1px solid #10B981' : '1px solid #EF4444';
+            idSearchResult.style.color = isSuccess ? '#065F46' : '#7F1D1D';
+        }
+
+        // Fungsi untuk menampilkan loading
+        function showLoading() {
+            loginSection.style.display = 'none';
+            resultSection.style.display = 'none';
+            classTable.style.display = 'none';
+            loadingSection.style.display = 'block';
+            loginError.style.display = 'none';
+            idSearchResult.style.display = 'none';
+        }
+
+        // Fungsi untuk menyembunyikan loading
+        function hideLoading() {
+            loadingSection.style.display = 'none';
+            loginSection.style.display = 'block';
+        }
+
+        // Fungsi untuk menampilkan error
+        function showError(message) {
+            loginError.textContent = message;
+            loginError.style.display = 'block';
+        }
+
+        // Fungsi untuk menampilkan hasil
+        function showResult(peserta) {
+            resultSection.className = 'result success';
+            document.body.style.backgroundColor = 'rgba(16, 185, 129, 0.05)';
+            
+            // Konten hasil
+            let html = `
+                <h2>Data Ditemukan! ✅</h2>
+                <p><strong>ID Peserta:</strong> ${peserta.username}</p>
+                <p><strong>Nama Lengkap:</strong> ${peserta.nama}</p>
+                <p><strong>Kelas:</strong> ${peserta.kelas}</p>
+                <p><strong>Status:</strong> ${peserta.keterangan}</p>
+                <p style="margin-top: 20px; font-weight: 600;">Selamat! Data Anda terdaftar dalam sistem.</p>
+            `;
+            
+            html += `<button class="btn back-btn" id="back-btn">Cek Data Lain</button>`;
+            
+            resultSection.innerHTML = html;
+            resultSection.style.display = 'block';
+            loadingSection.style.display = 'none';
+            
+            // Event listener untuk tombol kembali
+            document.getElementById('back-btn').addEventListener('click', () => {
+                resetForm();
+            });
+        }
+
+        // Fungsi untuk mereset form
+        function resetForm() {
+            loginSection.style.display = 'block';
+            resultSection.style.display = 'none';
+            classTable.style.display = 'none';
+            usernameInput.value = '';
+            searchNameInput.value = '';
+            searchClassSelect.value = '';
+            loginError.style.display = 'none';
+            idSearchResult.style.display = 'none';
+            document.body.style.backgroundColor = '#F3F4F6';
+            
+            // Hapus tombol kembali jika ada
+            const backButton = document.getElementById('back-from-class');
+            if (backButton) {
+                backButton.remove();
+            }
+        }
+
+        // Inisialisasi Feather Icons
+        feather.replace();
+    </script>
+</body>
+</html>
