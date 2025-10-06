@@ -1,0 +1,13 @@
+{
+  "name": "osim-recruitment",
+  "version": "1.0.0",
+  "description": "Sistem rekrutmen OSIM MTsN 3 Tulungagung",
+  "scripts": {
+    "build": "echo 'No build process needed'",
+    "dev": "live-server ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
