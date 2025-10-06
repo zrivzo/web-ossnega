@@ -621,28 +621,33 @@
         }, 5000);
 
         // FAQ Accordion
-        const faqItems = document.querySelectorAll('.faq-item');
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const icon = question.querySelector('i');
+    
+    question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
         
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            const icon = question.querySelector('i');
-            
-            question.addEventListener('click', () => {
-                const isOpen = item.classList.contains('open');
-                
-                // Close all items
-                faqItems.forEach(faq => {
-                    faq.classList.remove('open');
-                    faq.querySelector('i').style.transform = 'rotate(0deg)';
-                });
-                
-                // Open current item if it was closed
-                if (!isOpen) {
-                    item.classList.add('open');
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
+        // Close all items
+        faqItems.forEach(faq => {
+            faq.classList.remove('open');
+            const faqIcon = faq.querySelector('.faq-question i');
+            if (faqIcon) {
+                faqIcon.style.transform = 'rotate(0deg)';
+            }
         });
+        
+        // Open current item if it was closed
+        if (!isOpen) {
+            item.classList.add('open');
+            if (icon) {
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    });
+});
 
         // Countdown Timer
         function initializeCountdown() {
