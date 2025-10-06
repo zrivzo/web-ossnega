@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://osim.madsanega.web.id/assets/og-image.png">
+    <meta property="og:url" content="https://osim.madsanega.web.id/recruitment/announcement">
+    <title>Portal Pengumuman Kelolosan OSSIM MTSN 3 TULUNGAGUNG - 2025</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- Konfeti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-blue: #13265C;
+            --primary-light: #1e3a8a;
+            --success-green: #10B981;
+            --danger-red: #EF4444;
+            --light-gray: #F3F4F6;
+            --dark-gray: #6B7280;
+            --white: #ffffff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.5s ease;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .navbar-logo {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .navbar-logo img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .navbar-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+        
+        .navbar-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 30px;
+            height: 21px;
+            justify-content: space-between;
+        }
+        
+        .hamburger-line {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            width: 100%;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--success-green), var(--primary-blue));
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(19, 38, 92, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-success {
+            background-color: var(--success-green);
+        }
+        
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-red);
+        }
+        
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .divider span {
+            padding: 0 1rem;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .result {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .result.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success-green);
+            color: #065F46;
+        }
+        
+        .result.fail {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-red);
+            color: #7F1D1D;
+        }
+        
+        .result h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .result p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(19, 38, 92, 0.1);
+            border-left-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        .error-message {
+            color: var(--danger-red);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            display: none;
+            padding: 0.5rem;
+            background-color: rgba(239, 68, 68, 0.1);
+            border-radius: 6px;
+        }
+        
+        .id-search-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(19, 38, 92, 0.05);
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .id-search-result p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .back-btn {
+            margin-top: 1.5rem;
+            background-color: var(--dark-gray);
+        }
+        
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+        
+        .search-section {
+            display: none;
+        }
+        
+        .search-result-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background-color: rgba(19, 38, 92, 0.05);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .search-result-item:hover {
+            background-color: rgba(19, 38, 92, 0.1);
+        }
+        
+        .tab-container {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-gray);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-blue);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .result h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <div class="navbar-logo">
+                <img src="https://osis.madsanega.web.id/assets/logo.png" alt="Logo OSIS">
+            </div>
+            <span>OSIM MTSN 3 TULUNGAGUNG</span>
+        </div>
+        
+        <div class="navbar-menu" id="navbar-menu">
+            <a href="/" class="navbar-link">Beranda</a>
+            <a href="/recruitment/checkdata" class="navbar-link">Cek Data</a>
+            <a href="https://osis.madsanega.web.id" class="navbar-link" target="_blank">Website OSIM</a>
+        </div>
+        
+        <div class="hamburger-menu" id="hamburger-menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container" id="main-container">
+            <div class="header">
+                <h1>Portal Pengumuman</h1>
+                <h3>Wawancara Tahap <b>1</b></h3>
+                <p>Seleksi Calon Pengurus OSIM Tahun 2025/2026</p>
+            </div>
+            
+            <div class="content">
+                <p class="welcome-text" style="text-align: center; margin-bottom: 1.5rem;">
+                    Selamat datang di Portal Pengumuman Kelolosan OSIM MTSN 3 TULUNGAGUNG Tahun 2025
+                </p>
+                
+                <div class="tab-container">
+                    <div class="tab active" id="id-tab">Cari dengan ID</div>
+                    <div class="tab" id="name-tab">Cari dengan Nama</div>
+                </div>
+                
+                <!-- ID Search Section -->
+                <div class="card" id="id-search-section">
+                    <h3 class="card-title">
+                        <i data-feather="search"></i>
+                        Cari dengan ID Peserta
+                    </h3>
+                    <div class="form-group">
+                        <label for="username" class="form-label">Masukkan ID Peserta</label>
+                        <input type="text" id="username" class="form-control" placeholder="Contoh: 002, 001...">
+                    </div>
+                    
+                    <button id="login-btn" class="btn">Lihat Pengumuman</button>
+                    
+                    <div class="error-message" id="login-error"></div>
+                </div>
+                
+                <!-- Name Search Section -->
+                <div class="card search-section" id="name-search-section">
+                    <h3 class="card-title">
+                        <i data-feather="user"></i>
+                        Cari dengan Nama
+                    </h3>
+                    <div class="form-group">
+                        <label for="search-name" class="form-label">Masukkan Nama Lengkap</label>
+                        <input type="text" id="search-name" class="form-control" placeholder="Masukkan nama lengkap">
+                    </div>
+                    
+                    <div id="search-results">
+                        <!-- Hasil pencarian real-time akan ditampilkan di sini -->
+                    </div>
+                </div>
+                
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Memproses data...</p>
+                </div>
+                
+                <div class="result" id="result-section">
+                    <!-- Hasil pengumuman akan ditampilkan di sini -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Data peserta (embedded dalam file JS)
+        const pesertaData = [
+            { "username": "001", "nama": "Muhammad Iqbal", "status": "Lolos" },
+            { "username": "002", "nama": "Nayra Azzahra", "status": "Lolos" },
+            { "username": "003", "nama": "Tasyakurnia", "status": "Lolos" },
+            { "username": "101", "nama": "Nabil Qiswa", "status": "Tidak Lolos" },
+            { "username": "102", "nama": "Qoirun Nikmah", "status": "Lolos" },
+            { "username": "103", "nama": "Rafael Kenzo", "status": "Lolos" },
+            { "username": "104", "nama": "Moch Julian", "status": "Lolos" },
+            { "username": "105", "nama": "Muhammad Nazril", "status": "Lolos" }
+        ];
+
+        // DOM Elements
+        const navbarMenu = document.getElementById('navbar-menu');
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const idTab = document.getElementById('id-tab');
+        const nameTab = document.getElementById('name-tab');
+        const idSearchSection = document.getElementById('id-search-section');
+        const nameSearchSection = document.getElementById('name-search-section');
+        const loginSection = document.getElementById('login-section');
+        const loadingSection = document.getElementById('loading');
+        const resultSection = document.getElementById('result-section');
+        const loginBtn = document.getElementById('login-btn');
+        const usernameInput = document.getElementById('username');
+        const searchNameInput = document.getElementById('search-name');
+        const loginError = document.getElementById('login-error');
+        const searchResults = document.getElementById('search-results');
+
+        // Event Listeners
+        hamburgerMenu.addEventListener('click', toggleNavbar);
+        idTab.addEventListener('click', () => switchTab('id'));
+        nameTab.addEventListener('click', () => switchTab('name'));
+        loginBtn.addEventListener('click', handleLogin);
+        
+        // Real-time search
+        searchNameInput.addEventListener('input', handleRealTimeSearch);
+        
+        // Enter key support
+        usernameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+
+        // Fungsi untuk toggle navbar
+        function toggleNavbar() {
+            navbarMenu.classList.toggle('active');
+            hamburgerMenu.classList.toggle('active');
+        }
+
+        // Fungsi untuk switch tab
+        function switchTab(tab) {
+            if (tab === 'id') {
+                idTab.classList.add('active');
+                nameTab.classList.remove('active');
+                idSearchSection.style.display = 'block';
+                nameSearchSection.style.display = 'none';
+            } else {
+                idTab.classList.remove('active');
+                nameTab.classList.add('active');
+                idSearchSection.style.display = 'none';
+                nameSearchSection.style.display = 'block';
+                // Trigger pencarian saat beralih ke tab nama
+                handleRealTimeSearch();
+            }
+        }
+
+        // Fungsi untuk menangani login
+        function handleLogin() {
+            const username = usernameInput.value.trim();
+            
+            if (!username) {
+                showError('Masukkan ID peserta terlebih dahulu');
+                return;
+            }
+            
+            showLoading();
+            
+            // Simulasi loading
+            setTimeout(() => {
+                const peserta = pesertaData.find(p => p.username === username);
+                
+                if (peserta) {
+                    showResult(peserta);
+                } else {
+                    showError('ID tidak ditemukan');
+                    hideLoading();
+                }
+            }, 1500);
+        }
+
+        // Fungsi untuk pencarian real-time
+        function handleRealTimeSearch() {
+            const nama = searchNameInput.value.trim();
+            
+            if (!nama) {
+                searchResults.innerHTML = '<p class="text-muted">Masukkan nama untuk mencari ID peserta</p>';
+                return;
+            }
+            
+            // Mencari peserta berdasarkan nama (case insensitive)
+            const hasilPencarian = pesertaData.filter(p => 
+                p.nama.toLowerCase().includes(nama.toLowerCase())
+            );
+            
+            if (hasilPencarian.length > 0) {
+                let html = '';
+                hasilPencarian.forEach(p => {
+                    html += `
+                        <div class="search-result-item" data-id="${p.username}">
+                            <strong>${p.nama}</strong> - ID: ${p.username}
+                        </div>
+                    `;
+                });
+                searchResults.innerHTML = html;
+                
+                // Tambahkan event listener untuk setiap item hasil pencarian
+                document.querySelectorAll('.search-result-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        usernameInput.value = id;
+                        switchTab('id');
+                        handleLogin();
+                    });
+                });
+            } else {
+                searchResults.innerHTML = '<p class="text-muted">Nama tidak ditemukan dalam data peserta</p>';
+            }
+        }
+
+        // Fungsi untuk menampilkan loading
+        function showLoading() {
+            idSearchSection.style.display = 'none';
+            nameSearchSection.style.display = 'none';
+            resultSection.style.display = 'none';
+            loadingSection.style.display = 'block';
+            loginError.style.display = 'none';
+        }
+
+        // Fungsi untuk menyembunyikan loading
+        function hideLoading() {
+            loadingSection.style.display = 'none';
+            idSearchSection.style.display = 'block';
+            nameSearchSection.style.display = 'none';
+            idTab.classList.add('active');
+            nameTab.classList.remove('active');
+        }
+
+        // Fungsi untuk menampilkan error
+        function showError(message) {
+            loginError.textContent = message;
+            loginError.style.display = 'block';
+        }
+
+        // Fungsi untuk menampilkan hasil
+        function showResult(peserta) {
+            const isLolos = peserta.status === 'Lolos';
+            
+            // Set warna berdasarkan status
+            if (isLolos) {
+                resultSection.className = 'result success';
+                document.body.style.backgroundColor = 'rgba(16, 185, 129, 0.05)';
+            } else {
+                resultSection.className = 'result fail';
+                document.body.style.backgroundColor = 'rgba(239, 68, 68, 0.05)';
+            }
+            
+            // Konten hasil
+            let html = '';
+            
+            if (isLolos) {
+                html = `
+                    <h2>SELAMAT ${peserta.nama.toUpperCase()}! 🎉</h2>
+                    <p>Anda dinyatakan <strong>Lolos</strong> Seleksi OSIM MTSN 3 TULUNGAGUNG</p>
+                    <p><strong>Petunjuk tahap selanjutnya:</strong></p>
+                    <p>1. Pantau Informasi Selanjutnya Lewat Grup WhatsApp Resmi Rekrutmen</p>
+                    <p>2. Meskipun telah lolos tahap Pertama, Tetap rendah hati dan tetap optimis</p>
+                    <p>3. Siapkan diri untuk sesi wawancara lanjutan</p>
+                `;
+                
+                // Trigger efek konfeti
+                triggerConfetti();
+            } else {
+                html = `
+                    <h2>Terima kasih ${peserta.nama}! ❤️</h2>
+                    <p>Kamu belum lolos kali ini, tapi semangatmu luar biasa!</p>
+                    <p>Jangan menyerah, masih banyak kesempatan berharga menantimu di MTSN 3 TULUNGAGUNG ini.</p>
+                    <p>Teruslah berkontribusi dan berprestasi dalam kegiatan lainnya!</p>
+                `;
+            }
+            
+            html += `<button class="btn back-btn" id="back-btn">Kembali ke Pencarian</button>`;
+            
+            resultSection.innerHTML = html;
+            resultSection.style.display = 'block';
+            loadingSection.style.display = 'none';
+            
+            // Event listener untuk tombol kembali
+            document.getElementById('back-btn').addEventListener('click', () => {
+                resetForm();
+            });
+        }
+
+        // Fungsi untuk mereset form
+        function resetForm() {
+            loadingSection.style.display = 'none';
+            resultSection.style.display = 'none';
+            idSearchSection.style.display = 'block';
+            nameSearchSection.style.display = 'none';
+            usernameInput.value = '';
+            searchNameInput.value = '';
+            loginError.style.display = 'none';
+            idTab.classList.add('active');
+            nameTab.classList.remove('active');
+            document.body.style.backgroundColor = '#F3F4F6';
+        }
+
+        // Fungsi untuk efek konfeti
+        function triggerConfetti() {
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+            
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+                
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+                
+                const particleCount = 50 * (timeLeft / duration);
+                
+                // Konfeti dari kiri
+                confetti({
+                    ...defaults,
+                    particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                });
+                
+                // Konfeti dari kanan
+                confetti({
+                    ...defaults,
+                    particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                });
+            }, 250);
+        }
+
+        // Inisialisasi Feather Icons
+        feather.replace();
+    </script>
+</body>
+</html>
