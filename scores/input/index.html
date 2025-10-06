@@ -17,6 +17,9 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
+    <!-- Netlify Identity -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -83,11 +86,34 @@
         .login-container {
             background: linear-gradient(135deg, #13265C 0%, #1e3a8a 100%);
         }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-table {
+                font-size: 12px;
+            }
+            .print-break {
+                page-break-after: always;
+            }
+        }
     </style>
 </head>
 <body class="font-nunito bg-gray-50 scroll-smooth">
+    <!-- Netlify Identity Widget -->
+    <div data-netlify-identity-menu></div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+            <p class="text-gray-600">Memuat aplikasi...</p>
+        </div>
+    </div>
+
     <!-- Login Screen -->
-    <div id="login-screen" class="min-h-screen flex items-center justify-center login-container p-4">
+    <div id="login-screen" class="min-h-screen flex items-center justify-center login-container p-4 hidden">
         <div class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
             <div class="text-center mb-8">
                 <div class="flex justify-center mb-4">
@@ -99,35 +125,20 @@
                 <p class="text-gray-600">OSIM MTsN 3 Tulungagung</p>
             </div>
 
-            <form id="login-form" class="space-y-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Nama Penginput
-                    </label>
-                    <input type="text" 
-                           id="input-name"
-                           required
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                           placeholder="Masukkan nama Anda">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Password
-                    </label>
-                    <input type="password" 
-                           id="input-password"
-                           required
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                           placeholder="Masukkan password">
-                </div>
-
-                <button type="submit" 
-                        class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+            <div class="space-y-4">
+                <button id="netlify-login" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
                     <i data-feather="log-in" class="w-4 h-4 mr-2 inline"></i>
-                    Masuk ke Sistem
+                    Login dengan Netlify Identity
                 </button>
-            </form>
+
+                <div class="p-4 bg-blue-50 rounded-lg">
+                    <h4 class="font-semibold text-blue-800 mb-2">Informasi Login:</h4>
+                    <p class="text-sm text-blue-700">
+                        <strong>Email:</strong> madsanegamedia@gmail.com<br>
+                        <strong>Password:</strong> wawancara1
+                    </p>
+                </div>
+            </div>
 
             <div class="mt-6 p-4 bg-yellow-50 rounded-lg">
                 <p class="text-sm text-yellow-800 text-center">
@@ -141,12 +152,12 @@
     <!-- Main Application (Hidden until login) -->
     <div id="main-app" class="hidden">
         <!-- Header -->
-        <header class="fixed top-0 w-full bg-white shadow-lg z-40">
+        <header class="fixed top-0 w-full bg-white shadow-lg z-40 no-print">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
                     <!-- Logo & Title -->
                     <div class="flex items-center space-x-3">
-                        <img src="https://files.catbox.moe/ujqusw.png" alt="OSIM Logo" class="w-10 h-10">
+                        <img src="https://osis.madsanega.web.id/assets/logo.png" alt="OSIM Logo" class="w-10 h-10">
                         <div>
                             <span class="text-xl font-bold text-primary-950">Input Nilai Wawancara</span>
                             <p class="text-sm text-gray-600" id="user-info">OSIM MTsN 3 Tulungagung</p>
@@ -156,68 +167,26 @@
                     <!-- Navigation -->
                     <div class="flex items-center space-x-4">
                         <span class="text-sm text-gray-600" id="login-time"></span>
-                        <a href="/" class="text-primary-600 hover:text-primary-700 font-medium">
-                            <i data-feather="home" class="w-5 h-5 mr-1"></i>
-                            Beranda
-                        </a>
+                        
+                        <!-- Action Buttons -->
+                        <button id="share-data" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                            <i data-feather="share-2" class="w-4 h-4 mr-1"></i>
+                            Bagikan Data
+                        </button>
+                        
+                        <button id="print-results" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                            <i data-feather="printer" class="w-4 h-4 mr-1"></i>
+                            Print Hasil
+                        </button>
+                        
                         <button id="logout-btn" class="text-red-600 hover:text-red-700 font-medium">
                             <i data-feather="log-out" class="w-5 h-5 mr-1"></i>
                             Logout
-                        </button>
-                        <button id="sidebar-toggle" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                            <i data-feather="menu"></i>
                         </button>
                     </div>
                 </div>
             </div>
         </header>
-
-        <!-- Sidebar -->
-        <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-80 bg-white shadow-2xl z-50 p-6">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-xl font-bold text-primary-950">Menu Navigasi</h2>
-                <button id="sidebar-close" class="p-2 rounded-lg hover:bg-gray-100">
-                    <i data-feather="x"></i>
-                </button>
-            </div>
-            
-            <nav class="space-y-4">
-                <a href="/" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600 transition-colors">
-                    <i data-feather="home" class="w-5 h-5"></i>
-                    <span class="font-medium">Beranda Utama</span>
-                </a>
-                
-                <a href="/check-data.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600 transition-colors">
-                    <i data-feather="search" class="w-5 h-5"></i>
-                    <span class="font-medium">Cek Data Peserta</span>
-                </a>
-                
-                <a href="/pengumuman.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600 transition-colors">
-                    <i data-feather="bell" class="w-5 h-5"></i>
-                    <span class="font-medium">Pengumuman Hasil</span>
-                </a>
-                
-                <div class="border-t pt-4">
-                    <p class="text-sm text-gray-600 font-medium mb-2">Aplikasi Internal</p>
-                    <a href="/scores/input.html" class="flex items-center space-x-3 p-3 rounded-lg bg-primary-50 text-primary-600 transition-colors">
-                        <i data-feather="edit-3" class="w-5 h-5"></i>
-                        <span class="font-medium">Input Nilai Wawancara</span>
-                    </a>
-                </div>
-            </nav>
-            
-            <div class="absolute bottom-6 left-6 right-6">
-                <div class="border-t pt-4">
-                    <p class="text-sm text-gray-600 text-center">
-                        © OSIM MTsN 3 TULUNGAGUNG<br>
-                        Sie Media dan IT 2025
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sidebar Backdrop -->
-        <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
         <!-- Main Content -->
         <main class="pt-20 pb-8">
@@ -234,7 +203,7 @@
                 </div>
 
                 <!-- Control Panel -->
-                <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 no-print">
                     <div class="grid md:grid-cols-4 gap-4">
                         <!-- Class Filter -->
                         <div>
@@ -291,12 +260,28 @@
                         <div class="flex items-end space-x-2">
                             <button id="save-scores" class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
                                 <i data-feather="save" class="w-4 h-4 mr-2"></i>
-                                Simpan Nilai
+                                Simpan ke Database
                             </button>
                             <button id="reset-scores" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-3 rounded-lg transition-colors">
                                 <i data-feather="refresh-cw" class="w-4 h-4"></i>
                             </button>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Database Status -->
+                <div id="db-status" class="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-8 no-print hidden">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i data-feather="database" class="text-blue-600 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-blue-800" id="db-status-title">Status Database</h4>
+                                <p class="text-sm text-blue-700" id="db-status-message"></p>
+                            </div>
+                        </div>
+                        <button id="refresh-data" class="text-blue-600 hover:text-blue-800">
+                            <i data-feather="refresh-cw" class="w-4 h-4"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -328,7 +313,7 @@
                 </div>
 
                 <!-- Grading Info -->
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 mb-8">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 mb-8 no-print">
                     <h4 class="font-semibold text-yellow-800 mb-2 flex items-center">
                         <i data-feather="info" class="w-4 h-4 mr-2"></i>
                         Kriteria Penilaian & Kelulusan
@@ -337,11 +322,11 @@
                         <div>
                             <p class="font-medium text-yellow-800 mb-1">5 Aspek Penilaian:</p>
                             <ul class="text-yellow-700 space-y-1">
-                                <li>1. Komunikasi</li>
-                                <li>2. Kreativitas</li>
-                                <li>3. Kepemimpinan</li>
-                                <li>4. Kerjasama</li>
-                                <li>5. Komitmen</li>
+                                <li>1. Kelebihan/Kekurangan</li>
+                                <li>2. Wawasan</li>
+                                <li>3. Alasan</li>
+                                <li>4. Problem Solving</li>
+                                <li>5. Komitmen/Manajemen Masalah</li>
                             </ul>
                         </div>
                         <div class="flex items-center">
@@ -360,7 +345,7 @@
                 </div>
 
                 <!-- Scores Table -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden print-table">
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <thead>
@@ -369,14 +354,14 @@
                                     <th class="px-4 py-3 text-left">ID</th>
                                     <th class="px-4 py-3 text-left">Nama Lengkap</th>
                                     <th class="px-4 py-3 text-left">Kelas</th>
-                                    <th class="px-4 py-3 text-center">Komunikasi</th>
-                                    <th class="px-4 py-3 text-center">Kreativitas</th>
-                                    <th class="px-4 py-3 text-center">Kepemimpinan</th>
-                                    <th class="px-4 py-3 text-center">Kerjasama</th>
-                                    <th class="px-4 py-3 text-center">Komitmen</th>
+                                    <th class="px-4 py-3 text-center">Kelebihan/Kekurangan</th>
+                                    <th class="px-4 py-3 text-center">Wawasan</th>
+                                    <th class="px-4 py-3 text-center">Alasan</th>
+                                    <th class="px-4 py-3 text-center">Problem Solving</th>
+                                    <th class="px-4 py-3 text-center">Komitmen/Manajemen Masalah</th>
                                     <th class="px-4 py-3 text-center">Rata-rata</th>
                                     <th class="px-4 py-3 text-center">Status</th>
-                                    <th class="px-4 py-3 text-center">Aksi</th>
+                                    <th class="px-4 py-3 text-center no-print">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="scores-table-body">
@@ -397,7 +382,7 @@
 
     <script>
         // Data peserta
-        const pesertaData =  [
+        const pesertaData = [
             { "username": "001", "nama": "Muhammad Iqbal", "kelas": "7A", "keterangan": "Terdaftar" },
             { "username": "002", "nama": "Nayra Azzahra", "kelas": "7A", "keterangan": "Terdaftar" },
             { "username": "003", "nama": "Tasyakurnia", "kelas": "7A", "keterangan": "Terdaftar" },
@@ -502,103 +487,157 @@
 
         // Initialize
         feather.replace();
-        const PASSWORD = "wawancara1";
-        let scoresData = JSON.parse(localStorage.getItem('scoresData')) || {};
+        let scoresData = {};
         let currentUser = null;
+        const API_URL = '/.netlify/functions/scores';
 
-        // Login Functionality
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Check authentication status
+        function checkAuth() {
+            const user = netlifyIdentity.currentUser();
+            if (user) {
+                currentUser = user;
+                showMainApp();
+            } else {
+                showLoginScreen();
+            }
+            hideLoading();
+        }
+
+        function showLoginScreen() {
+            document.getElementById('loading-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('main-app').classList.add('hidden');
+        }
+
+        function showMainApp() {
+            document.getElementById('loading-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            document.getElementById('user-info').textContent = `User: ${currentUser.email}`;
+            document.getElementById('login-time').textContent = new Date().toLocaleString('id-ID');
             
-            const inputName = document.getElementById('input-name').value.trim();
-            const inputPassword = document.getElementById('input-password').value;
+            initializeMainApp();
+        }
 
-            if (inputPassword !== PASSWORD) {
-                Swal.fire({
-                    title: 'Password Salah!',
-                    text: 'Password yang Anda masukkan tidak benar',
-                    icon: 'error',
-                    confirmButtonColor: '#13265C'
-                });
-                return;
-            }
+        function hideLoading() {
+            document.getElementById('loading-screen').classList.add('hidden');
+        }
 
-            if (!inputName) {
-                Swal.fire({
-                    title: 'Nama Kosong!',
-                    text: 'Harap masukkan nama penginput',
-                    icon: 'warning',
-                    confirmButtonColor: '#13265C'
-                });
-                return;
-            }
+        // Netlify Identity Events
+        netlifyIdentity.on('init', checkAuth);
+        netlifyIdentity.on('login', checkAuth);
+        netlifyIdentity.on('logout', () => {
+            currentUser = null;
+            showLoginScreen();
+        });
 
-            currentUser = {
-                name: inputName,
-                loginTime: new Date().toISOString()
-            };
+        // Login button
+        document.getElementById('netlify-login').addEventListener('click', () => {
+            netlifyIdentity.open('login');
+        });
 
-            // Show success and switch to main app
-            Swal.fire({
-                title: 'Login Berhasil!',
-                html: `Selamat datang <strong>${inputName}</strong>`,
-                icon: 'success',
-                confirmButtonColor: '#13265C'
-            }).then(() => {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('main-app').classList.remove('hidden');
-                document.getElementById('user-info').textContent = `Penginput: ${inputName}`;
-                document.getElementById('login-time').textContent = new Date().toLocaleString('id-ID');
+        // Logout button
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            netlifyIdentity.logout();
+        });
+
+        // Database Functions
+        async function loadScoresFromDB() {
+            try {
+                showDBStatus('Memuat data dari database...', 'loading');
+                const response = await fetch(API_URL);
+                const data = await response.json();
                 
-                // Initialize main application
-                initializeMainApp();
-            });
-        });
-
-        // Logout Functionality
-        document.getElementById('logout-btn').addEventListener('click', function() {
-            Swal.fire({
-                title: 'Konfirmasi Logout',
-                text: 'Apakah Anda yakin ingin keluar dari sistem?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#EF4444',
-                cancelButtonColor: '#6B7280',
-                confirmButtonText: 'Ya, Logout',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('login-screen').classList.remove('hidden');
-                    document.getElementById('main-app').classList.add('hidden');
-                    document.getElementById('input-password').value = '';
-                    currentUser = null;
+                if (data.success) {
+                    scoresData = data.data.scores || {};
+                    showDBStatus(`Data berhasil dimuat (${Object.keys(scoresData).length} peserta)`, 'success');
+                    return true;
+                } else {
+                    throw new Error(data.error);
                 }
-            });
-        });
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showDBStatus('Gagal memuat data, menggunakan data lokal', 'error');
+                // Fallback to localStorage
+                scoresData = JSON.parse(localStorage.getItem('scoresData')) || {};
+                return false;
+            }
+        }
+
+        async function saveScoresToDB() {
+            try {
+                showDBStatus('Menyimpan data ke database...', 'loading');
+                
+                const dataToSave = {
+                    scores: scoresData,
+                    metadata: {
+                        lastUpdated: new Date().toISOString(),
+                        totalRecords: Object.keys(scoresData).length,
+                        updatedBy: currentUser.email,
+                        version: '1.0'
+                    }
+                };
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataToSave)
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showDBStatus('Data berhasil disimpan ke database', 'success');
+                    return true;
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                console.error('Error saving data:', error);
+                showDBStatus('Gagal menyimpan ke database, menggunakan localStorage', 'error');
+                // Fallback to localStorage
+                localStorage.setItem('scoresData', JSON.stringify(scoresData));
+                return false;
+            }
+        }
+
+        function showDBStatus(message, type = 'info') {
+            const statusEl = document.getElementById('db-status');
+            const titleEl = document.getElementById('db-status-title');
+            const messageEl = document.getElementById('db-status-message');
+            
+            statusEl.classList.remove('hidden');
+            
+            const colors = {
+                loading: 'blue',
+                success: 'green',
+                error: 'red',
+                info: 'blue'
+            };
+            
+            const icons = {
+                loading: 'loader',
+                success: 'check-circle',
+                error: 'alert-circle',
+                info: 'info'
+            };
+            
+            statusEl.className = `bg-${colors[type]}-50 border border-${colors[type]}-200 rounded-2xl p-4 mb-8 no-print`;
+            titleEl.textContent = type === 'loading' ? 'Memproses...' : 'Status Database';
+            messageEl.textContent = message;
+            
+            // Update icon
+            const icon = statusEl.querySelector('i');
+            icon.setAttribute('data-feather', icons[type]);
+            feather.replace();
+        }
 
         // Main Application Functions
-        function initializeMainApp() {
-            // Sidebar Functionality
-            const sidebar = document.getElementById('sidebar');
-            const sidebarToggle = document.getElementById('sidebar-toggle');
-            const sidebarClose = document.getElementById('sidebar-close');
-            const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-
-            function openSidebar() {
-                sidebar.classList.add('open');
-                sidebarBackdrop.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeSidebar() {
-                sidebar.classList.remove('open');
-                sidebarBackdrop.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
-
-            sidebarToggle.addEventListener('click', openSidebar);
-            sidebarClose.addEventListener('click', closeSidebar);
-            sidebarBackdrop.addEventListener('click', closeSidebar);
+        async function initializeMainApp() {
+            // Load data from database
+            await loadScoresFromDB();
 
             // Grade Calculation
             function calculateGrade(score) {
@@ -680,7 +719,7 @@
                                     ${isLolos ? 'LOLOS' : 'TIDAK'}
                                 </span>
                             </td>
-                            <td class="px-4 py-3 text-center">
+                            <td class="px-4 py-3 text-center no-print">
                                 <button onclick="clearScore('${peserta.username}')" 
                                         class="text-red-600 hover:text-red-800 transition-colors">
                                     <i data-feather="trash-2" class="w-4 h-4"></i>
@@ -782,7 +821,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         delete scoresData[username];
-                        localStorage.setItem('scoresData', JSON.stringify(scoresData));
+                        saveScoresToDB();
                         displayScores();
                         Swal.fire('Terhapus!', 'Nilai berhasil dihapus.', 'success');
                     }
@@ -790,7 +829,7 @@
             }
 
             // Save scores
-            document.getElementById('save-scores').addEventListener('click', function() {
+            document.getElementById('save-scores').addEventListener('click', async function() {
                 const testDesk = document.getElementById('test-desk').value;
                 const testDate = document.getElementById('test-date').value;
 
@@ -824,21 +863,21 @@
                             average: calculateAverage(scores),
                             desk: testDesk,
                             date: testDate,
-                            inputBy: currentUser.name,
+                            inputBy: currentUser.email,
                             timestamp: new Date().toISOString()
                         };
                         savedCount++;
                     }
                 });
 
-                localStorage.setItem('scoresData', JSON.stringify(scoresData));
+                const success = await saveScoresToDB();
                 
                 Swal.fire({
-                    title: 'Berhasil Disimpan!',
+                    title: success ? 'Berhasil Disimpan!' : 'Disimpan ke Local',
                     html: `${savedCount} nilai berhasil disimpan<br>
                            <small>Meja ${testDesk} - ${testDate}<br>
-                           Input oleh: ${currentUser.name}</small>`,
-                    icon: 'success',
+                           Input oleh: ${currentUser.email}</small>`,
+                    icon: success ? 'success' : 'warning',
                     confirmButtonColor: '#13265C'
                 });
 
@@ -866,6 +905,61 @@
                     }
                 });
             });
+
+            // Refresh data
+            document.getElementById('refresh-data').addEventListener('click', async function() {
+                await loadScoresFromDB();
+                displayScores();
+            });
+
+            // Print results
+            document.getElementById('print-results').addEventListener('click', function() {
+                window.print();
+            });
+
+            // Share data
+            document.getElementById('share-data').addEventListener('click', function() {
+                const dataToShare = {
+                    scores: scoresData,
+                    statistics: getStatistics(),
+                    generatedAt: new Date().toISOString(),
+                    generatedBy: currentUser.email
+                };
+
+                const dataStr = JSON.stringify(dataToShare, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `nilai-wawancara-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                Swal.fire({
+                    title: 'Data Diexport!',
+                    text: 'File JSON berhasil diunduh',
+                    icon: 'success',
+                    confirmButtonColor: '#13265C'
+                });
+            });
+
+            function getStatistics() {
+                const averages = Object.values(scoresData)
+                    .filter(score => score.average > 0)
+                    .map(score => score.average);
+
+                return {
+                    totalPeserta: Object.keys(scoresData).length,
+                    totalDinilai: averages.length,
+                    rataRata: averages.length > 0 ? averages.reduce((a, b) => a + b, 0) / averages.length : 0,
+                    nilaiTertinggi: averages.length > 0 ? Math.max(...averages) : 0,
+                    nilaiTerendah: averages.length > 0 ? Math.min(...averages) : 0,
+                    lolos: averages.filter(avg => avg >= 85).length
+                };
+            }
 
             // Event listeners
             document.getElementById('class-filter').addEventListener('change', displayScores);
