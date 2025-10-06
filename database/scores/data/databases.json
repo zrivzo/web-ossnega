@@ -1,15 +1,23 @@
 {
   "scores": {},
   "metadata": {
-    "lastUpdated": "2024-10-05T10:00:00.000Z",
+    "lastUpdated": "2024-10-05T00:00:00.000Z",
     "totalRecords": 0,
     "version": "1.0",
+    "createdBy": "system",
     "criteria": [
-      "Komunikasi",
-      "Kreativitas", 
-      "Kepemimpinan",
-      "Kerjasama",
-      "Komitmen"
-    ]
+      "Kelebihan/Kekurangan",
+      "Wawasan", 
+      "Alasan",
+      "Problem Solving",
+      "Komitmen/Manajemen Masalah"
+    ],
+    "gradingScale": {
+      "A": { "min": 85, "max": 100, "status": "LOLOS" },
+      "B": { "min": 75, "max": 84, "status": "BAIK" },
+      "C": { "min": 60, "max": 74, "status": "CUKUP" },
+      "D": { "min": 0, "max": 59, "status": "TIDAK LOLOS" }
+    },
+    "testDesks": ["1", "2", "3", "4", "5", "6", "7", "8"]
   }
 }
