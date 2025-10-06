@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Nilai Wawancara - OSIM MTsN 3 Tulungagung</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'nunito': ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#13265C'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #13265C 0%, #1e3a8a 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        
+        .score-input:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .grade-A { background-color: #10B981; color: white; }
+        .grade-B { background-color: #3B82F6; color: white; }
+        .grade-C { background-color: #F59E0B; color: white; }
+        .grade-D { background-color: #EF4444; color: white; }
+        
+        .login-container {
+            background: linear-gradient(135deg, #13265C 0%, #1e3a8a 100%);
+        }
+    </style>
+</head>
+<body class="font-nunito bg-gray-50 scroll-smooth">
+    <!-- Login Screen -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center login-container p-4">
+        <div class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
+            <div class="text-center mb-8">
+                <div class="flex justify-center mb-4">
+                    <img src="https://files.catbox.moe/ujqusw.png" alt="OSIM Logo" class="w-16 h-16">
+                </div>
+                <h1 class="text-2xl font-bold text-primary-950 mb-2">
+                    Input Nilai Wawancara
+                </h1>
+                <p class="text-gray-600">OSIM MTsN 3 Tulungagung</p>
+            </div>
+
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Nama Penginput
+                    </label>
+                    <input type="text" 
+                           id="input-name"
+                           required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                           placeholder="Masukkan nama Anda">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Password
+                    </label>
+                    <input type="password" 
+                           id="input-password"
+                           required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                           placeholder="Masukkan password">
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+                    <i data-feather="log-in" class="w-4 h-4 mr-2 inline"></i>
+                    Masuk ke Sistem
+                </button>
+            </form>
+
+            <div class="mt-6 p-4 bg-yellow-50 rounded-lg">
+                <p class="text-sm text-yellow-800 text-center">
+                    <i data-feather="info" class="w-4 h-4 inline mr-1"></i>
+                    Hanya untuk panitia seleksi wawancara
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application (Hidden until login) -->
+    <div id="main-app" class="hidden">
+        <!-- Header -->
+        <header class="fixed top-0 w-full bg-white shadow-lg z-40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo & Title -->
+                    <div class="flex items-center space-x-3">
+                        <img src="https://files.catbox.moe/ujqusw.png" alt="OSIM Logo" class="w-10 h-10">
+                        <div>
+                            <span class="text-xl font-bold text-primary-950">Input Nilai Wawancara</span>
+                            <p class="text-sm text-gray-600" id="user-info">OSIM MTsN 3 Tulungagung</p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-600" id="login-time"></span>
+                        <a href="/" class="text-primary-600 hover:text-primary-700 font-medium">
+                            <i data-feather="home" class="w-5 h-5 mr-1"></i>
+                            Beranda
+                        </a>
+                        <button id="logout-btn" class="text-red-600 hover:text-red-700 font-medium">
+                            <i data-feather="log-out" class="w-5 h-5 mr-1"></i>
+                            Logout
+                        </button>
+                        <button id="sidebar-toggle" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                            <i data-feather="menu"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-80 bg-white shadow-2xl z-50 p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-xl font-bold text-primary-950">Menu Navigasi</h2>
+                <button id="sidebar-close" class="p-2 rounded-lg hover:bg-gray-100">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            
+            <nav class="space-y-4">
+                <a href="/" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600 transition-colors">
+                    <i data-feather="home" class="w-5 h-5"></i>
+                    <span class="font-medium">Beranda Utama</span>
+                </a>
+                
+                <a href="/check-data.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600 transition-colors">
+                    <i data-feather="search" class="w-5 h-5"></i>
+                    <span class="font-medium">Cek Data Peserta</span>
+                </a>
+                
+                <a href="/pengumuman.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600 transition-colors">
+                    <i data-feather="bell" class="w-5 h-5"></i>
+                    <span class="font-medium">Pengumuman Hasil</span>
+                </a>
+                
+                <div class="border-t pt-4">
+                    <p class="text-sm text-gray-600 font-medium mb-2">Aplikasi Internal</p>
+                    <a href="/scores/input.html" class="flex items-center space-x-3 p-3 rounded-lg bg-primary-50 text-primary-600 transition-colors">
+                        <i data-feather="edit-3" class="w-5 h-5"></i>
+                        <span class="font-medium">Input Nilai Wawancara</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="absolute bottom-6 left-6 right-6">
+                <div class="border-t pt-4">
+                    <p class="text-sm text-gray-600 text-center">
+                        © OSIM MTsN 3 TULUNGAGUNG<br>
+                        Sie Media dan IT 2025
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Backdrop -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+        <!-- Main Content -->
+        <main class="pt-20 pb-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Header Section -->
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-primary-950 mb-4">
+                        <i data-feather="edit-3" class="inline mr-3"></i>
+                        Input Nilai Wawancara - 5 Kriteria
+                    </h1>
+                    <p class="text-gray-600 max-w-3xl mx-auto">
+                        Sistem pengumpulan nilai untuk proses seleksi wawancara OSIM dengan 5 aspek penilaian
+                    </p>
+                </div>
+
+                <!-- Control Panel -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <!-- Class Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i data-feather="filter" class="inline w-4 h-4 mr-1"></i>
+                                Filter Kelas
+                            </label>
+                            <select id="class-filter" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value="">Semua Kelas</option>
+                                <option value="7A">Kelas 7A</option>
+                                <option value="7B">Kelas 7B</option>
+                                <option value="7C">Kelas 7C</option>
+                                <option value="7D">Kelas 7D</option>
+                                <option value="7E">Kelas 7E</option>
+                                <option value="7F">Kelas 7F</option>
+                                <option value="7G">Kelas 7G</option>
+                                <option value="7H">Kelas 7H</option>
+                                <option value="7I">Kelas 7I</option>
+                                <option value="7J">Kelas 7J</option>
+                                <option value="7K">Kelas 7K</option>
+                                <option value="8A">Kelas 8A</option>
+                            </select>
+                        </div>
+
+                        <!-- Test Desk -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i data-feather="layout" class="inline w-4 h-4 mr-1"></i>
+                                Meja Tes
+                            </label>
+                            <select id="test-desk" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value="">Pilih Meja</option>
+                                <option value="1">Meja 1</option>
+                                <option value="2">Meja 2</option>
+                                <option value="3">Meja 3</option>
+                                <option value="4">Meja 4</option>
+                                <option value="5">Meja 5</option>
+                                <option value="6">Meja 6</option>
+                                <option value="7">Meja 7</option>
+                                <option value="8">Meja 8</option>
+                            </select>
+                        </div>
+
+                        <!-- Date Input -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i data-feather="calendar" class="inline w-4 h-4 mr-1"></i>
+                                Tanggal Tes
+                            </label>
+                            <input type="date" id="test-date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex items-end space-x-2">
+                            <button id="save-scores" class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                                <i data-feather="save" class="w-4 h-4 mr-2"></i>
+                                Simpan Nilai
+                            </button>
+                            <button id="reset-scores" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-3 rounded-lg transition-colors">
+                                <i data-feather="refresh-cw" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div id="statistics" class="hidden bg-white rounded-2xl shadow-lg p-6 mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Statistik Nilai</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600" id="avg-score">-</div>
+                            <div class="text-sm text-green-700">Rata-rata</div>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600" id="max-score">-</div>
+                            <div class="text-sm text-blue-700">Nilai Tertinggi</div>
+                        </div>
+                        <div class="text-center p-4 bg-orange-50 rounded-lg">
+                            <div class="text-2xl font-bold text-orange-600" id="min-score">-</div>
+                            <div class="text-sm text-orange-700">Nilai Terendah</div>
+                        </div>
+                        <div class="text-center p-4 bg-purple-50 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600" id="total-scored">-</div>
+                            <div class="text-sm text-purple-700">Peserta Dinilai</div>
+                        </div>
+                        <div class="text-center p-4 bg-red-50 rounded-lg">
+                            <div class="text-2xl font-bold text-red-600" id="lolos-count">-</div>
+                            <div class="text-sm text-red-700">Lolos (≥85)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grading Info -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 mb-8">
+                    <h4 class="font-semibold text-yellow-800 mb-2 flex items-center">
+                        <i data-feather="info" class="w-4 h-4 mr-2"></i>
+                        Kriteria Penilaian & Kelulusan
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                        <div>
+                            <p class="font-medium text-yellow-800 mb-1">5 Aspek Penilaian:</p>
+                            <ul class="text-yellow-700 space-y-1">
+                                <li>1. Komunikasi</li>
+                                <li>2. Kreativitas</li>
+                                <li>3. Kepemimpinan</li>
+                                <li>4. Kerjasama</li>
+                                <li>5. Komitmen</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="grade-A px-2 py-1 rounded text-xs font-bold mr-2">A</span>
+                            <span class="text-yellow-700">85 - 100: LULUS</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="grade-B px-2 py-1 rounded text-xs font-bold mr-2">B</span>
+                            <span class="text-yellow-700">75 - 84: Baik</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="grade-C px-2 py-1 rounded text-xs font-bold mr-2">C</span>
+                            <span class="text-yellow-700">60 - 74: Cukup</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scores Table -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-primary-950 text-white">
+                                    <th class="px-4 py-3 text-left">No</th>
+                                    <th class="px-4 py-3 text-left">ID</th>
+                                    <th class="px-4 py-3 text-left">Nama Lengkap</th>
+                                    <th class="px-4 py-3 text-left">Kelas</th>
+                                    <th class="px-4 py-3 text-center">Komunikasi</th>
+                                    <th class="px-4 py-3 text-center">Kreativitas</th>
+                                    <th class="px-4 py-3 text-center">Kepemimpinan</th>
+                                    <th class="px-4 py-3 text-center">Kerjasama</th>
+                                    <th class="px-4 py-3 text-center">Komitmen</th>
+                                    <th class="px-4 py-3 text-center">Rata-rata</th>
+                                    <th class="px-4 py-3 text-center">Status</th>
+                                    <th class="px-4 py-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scores-table-body">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="text-center py-12">
+                    <i data-feather="users" class="w-16 h-16 text-gray-300 mx-auto mb-4"></i>
+                    <p class="text-gray-500">Pilih kelas untuk menampilkan daftar peserta</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Data peserta
+        const pesertaData =  [
+            { "username": "001", "nama": "Muhammad Iqbal", "kelas": "7A", "keterangan": "Terdaftar" },
+            { "username": "002", "nama": "Nayra Azzahra", "kelas": "7A", "keterangan": "Terdaftar" },
+            { "username": "003", "nama": "Tasyakurnia", "kelas": "7A", "keterangan": "Terdaftar" },
+            { "username": "004", "nama": "Thalita Putri", "kelas": "7A", "keterangan": "Terdaftar" },
+            { "username": "005", "nama": "Mohammad Noval", "kelas": "7B", "keterangan": "Terdaftar" },
+            { "username": "006", "nama": "Muhammad Rofa'i", "kelas": "7B", "keterangan": "Terdaftar" },
+            { "username": "007", "nama": "Safa Aprilia", "kelas": "7B", "keterangan": "Terdaftar" },
+            { "username": "008", "nama": "Azzahra Eka", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "009", "nama": "Bellya Afika", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "010", "nama": "Frishka Ussisa", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "011", "nama": "Habibah Dewi", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "012", "nama": "Imelda Sesa", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "013", "nama": "Khaira Acyuta", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "014", "nama": "Luaiyin", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "015", "nama": "Muhammad Faaiq", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "016", "nama": "Muhammad Zidan", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "017", "nama": "Najuwa Adinda", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "018", "nama": "Ndaru Diyah", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "019", "nama": "Rahmatul Laili", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "020", "nama": "Risa Nur Meida", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "021", "nama": "Suci Dwi", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "022", "nama": "Vania Cahya", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "023", "nama": "Zhafira Khansa", "kelas": "7C", "keterangan": "Terdaftar" },
+            { "username": "024", "nama": "Ambar Zulfa", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "025", "nama": "Arka Arkhananta", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "026", "nama": "Aura Ayu", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "027", "nama": "Azzahra Syaila", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "028", "nama": "Balqis Amira", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "029", "nama": "Citra Zahrotus", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "030", "nama": "Feby Aulia", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "031", "nama": "Kenzie Attarrizky", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "032", "nama": "Muhammad Arzaky", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "033", "nama": "Muhammad Evan", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "034", "nama": "Nisrinna Rana", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "035", "nama": "Reihan Aima", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "036", "nama": "Satria Arka", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "037", "nama": "Zahira Adamma", "kelas": "7D", "keterangan": "Terdaftar" },
+            { "username": "038", "nama": "Afika Fadiya", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "039", "nama": "Anindy Cantika", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "040", "nama": "Azka Gibran", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "041", "nama": "Berliana Asyifa", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "042", "nama": "Chintya Bunga", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "043", "nama": "Cindy Putri", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "044", "nama": "Dwi Ayu", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "045", "nama": "Eva Latifatun", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "046", "nama": "Fajarina Eka", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "047", "nama": "Himma Muhibbatur", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "048", "nama": "Servino Agustino", "kelas": "7E", "keterangan": "Terdaftar" },
+            { "username": "049", "nama": "Aqila Putri", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "050", "nama": "Avika Tsania", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "051", "nama": "Caesya Tania", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "052", "nama": "Inggit Najwa", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "053", "nama": "Izzana Ulfi", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "054", "nama": "Moch Naufal", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "055", "nama": "Nila Khoirul", "kelas": "7F", "keterangan": "Terdaftar" },
+            { "username": "056", "nama": "Anindya Ayunda Sari", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "057", "nama": "Berlian Ayu", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "058", "nama": "Muhammad Waffa", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "059", "nama": "Muhammad Wafi", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "060", "nama": "Natasya Nur Alia", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "061", "nama": "Thoriq Ezar", "kelas": "7G", "keterangan": "Terdaftar" },
+            { "username": "062", "nama": "Afifah Rohmi", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "063", "nama": "Afika Nazilatuz", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "064", "nama": "Aurelia Zahrotul", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "065", "nama": "Caesar Dzaki", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "066", "nama": "Elsafa Septania", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "067", "nama": "Fitra Kurnia", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "068", "nama": "Keisha Azka", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "069", "nama": "Kevin Andika", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "070", "nama": "Lavinia Salsabila", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "071", "nama": "Muhammad Axel", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "072", "nama": "Muhammad Fatih", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "073", "nama": "Ratu Aqiela", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "074", "nama": "Shifa Ainun", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "075", "nama": "Tsanindya Samara", "kelas": "7H", "keterangan": "Terdaftar" },
+            { "username": "076", "nama": "Ahmad Rehan", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "077", "nama": "Dian Aisyah", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "078", "nama": "Dochi Aprilio", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "079", "nama": "Lintang Tryas", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "080", "nama": "Melisya Fanesa", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "081", "nama": "Muhammad Azmi", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "082", "nama": "Nayko Prastuti", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "083", "nama": "Zazang Elga", "kelas": "7I", "keterangan": "Terdaftar" },
+            { "username": "084", "nama": "Alya Dewina", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "085", "nama": "Anggita Najwa", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "086", "nama": "Arisca Mayfa", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "087", "nama": "Dea Tri", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "088", "nama": "Lis Farizarotul", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "089", "nama": "Mika Lusiana", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "090", "nama": "Muhammad Khanza", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "091", "nama": "Muhammad Zydan", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "092", "nama": "Naufal Aprilia", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "093", "nama": "Naura Khayla", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "094", "nama": "Pamela Cinta", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "095", "nama": "Syifa Khanza", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "096", "nama": "Tsania Lutfia", "kelas": "7J", "keterangan": "Terdaftar" },
+            { "username": "097", "nama": "Afika Nayla", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "098", "nama": "Iqbal Pradana", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "099", "nama": "Muhammad Handika", "kelas": "7K", "keterangan": "Terdaftar" },
+            { "username": "100", "nama": "Muhammad Razyazka", "kelas": "7K", "keterangan": "Terdaftar" }
+        ];
+
+        // Initialize
+        feather.replace();
+        const PASSWORD = "wawancara1";
+        let scoresData = JSON.parse(localStorage.getItem('scoresData')) || {};
+        let currentUser = null;
+
+        // Login Functionality
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const inputName = document.getElementById('input-name').value.trim();
+            const inputPassword = document.getElementById('input-password').value;
+
+            if (inputPassword !== PASSWORD) {
+                Swal.fire({
+                    title: 'Password Salah!',
+                    text: 'Password yang Anda masukkan tidak benar',
+                    icon: 'error',
+                    confirmButtonColor: '#13265C'
+                });
+                return;
+            }
+
+            if (!inputName) {
+                Swal.fire({
+                    title: 'Nama Kosong!',
+                    text: 'Harap masukkan nama penginput',
+                    icon: 'warning',
+                    confirmButtonColor: '#13265C'
+                });
+                return;
+            }
+
+            currentUser = {
+                name: inputName,
+                loginTime: new Date().toISOString()
+            };
+
+            // Show success and switch to main app
+            Swal.fire({
+                title: 'Login Berhasil!',
+                html: `Selamat datang <strong>${inputName}</strong>`,
+                icon: 'success',
+                confirmButtonColor: '#13265C'
+            }).then(() => {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                document.getElementById('user-info').textContent = `Penginput: ${inputName}`;
+                document.getElementById('login-time').textContent = new Date().toLocaleString('id-ID');
+                
+                // Initialize main application
+                initializeMainApp();
+            });
+        });
+
+        // Logout Functionality
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Konfirmasi Logout',
+                text: 'Apakah Anda yakin ingin keluar dari sistem?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#EF4444',
+                cancelButtonColor: '#6B7280',
+                confirmButtonText: 'Ya, Logout',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('login-screen').classList.remove('hidden');
+                    document.getElementById('main-app').classList.add('hidden');
+                    document.getElementById('input-password').value = '';
+                    currentUser = null;
+                }
+            });
+        });
+
+        // Main Application Functions
+        function initializeMainApp() {
+            // Sidebar Functionality
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebarClose = document.getElementById('sidebar-close');
+            const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                sidebarBackdrop.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebarBackdrop.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+
+            sidebarToggle.addEventListener('click', openSidebar);
+            sidebarClose.addEventListener('click', closeSidebar);
+            sidebarBackdrop.addEventListener('click', closeSidebar);
+
+            // Grade Calculation
+            function calculateGrade(score) {
+                if (score >= 85) return 'A';
+                if (score >= 75) return 'B';
+                if (score >= 60) return 'C';
+                return 'D';
+            }
+
+            function getGradeClass(grade) {
+                switch(grade) {
+                    case 'A': return 'grade-A';
+                    case 'B': return 'grade-B';
+                    case 'C': return 'grade-C';
+                    case 'D': return 'grade-D';
+                    default: return 'bg-gray-200 text-gray-800';
+                }
+            }
+
+            // Calculate average from 5 criteria
+            function calculateAverage(scores) {
+                const validScores = scores.filter(score => score >= 60 && score <= 100);
+                if (validScores.length === 0) return 0;
+                return validScores.reduce((a, b) => a + b, 0) / validScores.length;
+            }
+
+            // Filter and Display Data
+            function displayScores() {
+                const classFilter = document.getElementById('class-filter').value;
+                const tableBody = document.getElementById('scores-table-body');
+                const emptyState = document.getElementById('empty-state');
+                
+                const filteredData = pesertaData.filter(peserta => 
+                    !classFilter || peserta.kelas === classFilter
+                );
+
+                if (filteredData.length === 0) {
+                    tableBody.innerHTML = '';
+                    emptyState.classList.remove('hidden');
+                    document.getElementById('statistics').classList.add('hidden');
+                    return;
+                }
+
+                emptyState.classList.add('hidden');
+                document.getElementById('statistics').classList.remove('hidden');
+
+                tableBody.innerHTML = filteredData.map((peserta, index) => {
+                    const existingScore = scoresData[peserta.username];
+                    const scores = existingScore ? existingScore.scores : [0, 0, 0, 0, 0];
+                    const average = calculateAverage(scores);
+                    const grade = average > 0 ? calculateGrade(average) : '';
+                    const gradeClass = grade ? getGradeClass(grade) : '';
+                    const isLolos = average >= 85;
+
+                    return `
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="px-4 py-3">${index + 1}</td>
+                            <td class="px-4 py-3 font-mono">${peserta.username}</td>
+                            <td class="px-4 py-3">${peserta.nama}</td>
+                            <td class="px-4 py-3">${peserta.kelas}</td>
+                            ${scores.map((score, i) => `
+                                <td class="px-2 py-3">
+                                    <input type="number" 
+                                           min="60" 
+                                           max="100" 
+                                           value="${score || ''}"
+                                           data-username="${peserta.username}"
+                                           data-criteria="${i}"
+                                           class="score-input w-16 px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-center">
+                                </td>
+                            `).join('')}
+                            <td class="px-4 py-3 text-center font-semibold">
+                                <span class="average-display ${isLolos ? 'text-green-600' : 'text-gray-600'}">
+                                    ${average > 0 ? average.toFixed(1) : '-'}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                <span class="status-display px-2 py-1 rounded text-xs font-bold ${isLolos ? 'grade-A' : 'bg-gray-200 text-gray-800'}">
+                                    ${isLolos ? 'LOLOS' : 'TIDAK'}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                <button onclick="clearScore('${peserta.username}')" 
+                                        class="text-red-600 hover:text-red-800 transition-colors">
+                                    <i data-feather="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                feather.replace();
+                updateStatistics();
+                attachInputListeners();
+            }
+
+            // Attach input listeners
+            function attachInputListeners() {
+                document.querySelectorAll('.score-input').forEach(input => {
+                    input.addEventListener('input', function() {
+                        const username = this.getAttribute('data-username');
+                        const criteriaIndex = parseInt(this.getAttribute('data-criteria'));
+                        const score = parseInt(this.value);
+                        
+                        // Get all scores for this user
+                        const row = this.closest('tr');
+                        const inputs = row.querySelectorAll('.score-input');
+                        const scores = Array.from(inputs).map(input => {
+                            const val = parseInt(input.value);
+                            return isNaN(val) ? 0 : val;
+                        });
+                        
+                        const average = calculateAverage(scores);
+                        const averageDisplay = row.querySelector('.average-display');
+                        const statusDisplay = row.querySelector('.status-display');
+                        
+                        if (average > 0) {
+                            averageDisplay.textContent = average.toFixed(1);
+                            const isLolos = average >= 85;
+                            averageDisplay.className = `average-display ${isLolos ? 'text-green-600' : 'text-gray-600'}`;
+                            statusDisplay.textContent = isLolos ? 'LOLOS' : 'TIDAK';
+                            statusDisplay.className = `status-display px-2 py-1 rounded text-xs font-bold ${isLolos ? 'grade-A' : 'bg-gray-200 text-gray-800'}`;
+                        } else {
+                            averageDisplay.textContent = '-';
+                            averageDisplay.className = 'average-display text-gray-600';
+                            statusDisplay.textContent = 'TIDAK';
+                            statusDisplay.className = 'status-display px-2 py-1 rounded text-xs font-bold bg-gray-200 text-gray-800';
+                        }
+                    });
+                });
+            }
+
+            // Update statistics
+            function updateStatistics() {
+                const classFilter = document.getElementById('class-filter').value;
+                const filteredData = pesertaData.filter(peserta => 
+                    !classFilter || peserta.kelas === classFilter
+                );
+
+                const averages = filteredData
+                    .map(peserta => {
+                        const existingScore = scoresData[peserta.username];
+                        if (!existingScore || !existingScore.scores) return null;
+                        return calculateAverage(existingScore.scores);
+                    })
+                    .filter(avg => avg > 0);
+
+                const lolosCount = averages.filter(avg => avg >= 85).length;
+
+                if (averages.length === 0) {
+                    document.getElementById('avg-score').textContent = '-';
+                    document.getElementById('max-score').textContent = '-';
+                    document.getElementById('min-score').textContent = '-';
+                    document.getElementById('total-scored').textContent = '0';
+                    document.getElementById('lolos-count').textContent = '0';
+                    return;
+                }
+
+                const avg = averages.reduce((a, b) => a + b, 0) / averages.length;
+                const max = Math.max(...averages);
+                const min = Math.min(...averages);
+
+                document.getElementById('avg-score').textContent = avg.toFixed(1);
+                document.getElementById('max-score').textContent = max.toFixed(1);
+                document.getElementById('min-score').textContent = min.toFixed(1);
+                document.getElementById('total-scored').textContent = averages.length;
+                document.getElementById('lolos-count').textContent = lolosCount;
+            }
+
+            // Clear individual score
+            window.clearScore = function(username) {
+                Swal.fire({
+                    title: 'Hapus Nilai?',
+                    text: 'Apakah Anda yakin ingin menghapus semua nilai untuk peserta ini?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#EF4444',
+                    cancelButtonColor: '#6B7280',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        delete scoresData[username];
+                        localStorage.setItem('scoresData', JSON.stringify(scoresData));
+                        displayScores();
+                        Swal.fire('Terhapus!', 'Nilai berhasil dihapus.', 'success');
+                    }
+                });
+            }
+
+            // Save scores
+            document.getElementById('save-scores').addEventListener('click', function() {
+                const testDesk = document.getElementById('test-desk').value;
+                const testDate = document.getElementById('test-date').value;
+
+                if (!testDesk || !testDate) {
+                    Swal.fire({
+                        title: 'Data Tidak Lengkap',
+                        text: 'Harap pilih meja tes dan tanggal tes terlebih dahulu',
+                        icon: 'warning',
+                        confirmButtonColor: '#13265C'
+                    });
+                    return;
+                }
+
+                let savedCount = 0;
+                const rows = document.querySelectorAll('#scores-table-body tr');
+
+                rows.forEach(row => {
+                    const username = row.querySelector('.score-input').getAttribute('data-username');
+                    const inputs = row.querySelectorAll('.score-input');
+                    const scores = Array.from(inputs).map(input => {
+                        const val = parseInt(input.value);
+                        return isNaN(val) ? 0 : val;
+                    });
+
+                    // Check if at least one score is filled
+                    const hasValidScore = scores.some(score => score >= 60 && score <= 100);
+
+                    if (hasValidScore) {
+                        scoresData[username] = {
+                            scores: scores,
+                            average: calculateAverage(scores),
+                            desk: testDesk,
+                            date: testDate,
+                            inputBy: currentUser.name,
+                            timestamp: new Date().toISOString()
+                        };
+                        savedCount++;
+                    }
+                });
+
+                localStorage.setItem('scoresData', JSON.stringify(scoresData));
+                
+                Swal.fire({
+                    title: 'Berhasil Disimpan!',
+                    html: `${savedCount} nilai berhasil disimpan<br>
+                           <small>Meja ${testDesk} - ${testDate}<br>
+                           Input oleh: ${currentUser.name}</small>`,
+                    icon: 'success',
+                    confirmButtonColor: '#13265C'
+                });
+
+                updateStatistics();
+            });
+
+            // Reset scores
+            document.getElementById('reset-scores').addEventListener('click', function() {
+                Swal.fire({
+                    title: 'Reset Semua Nilai?',
+                    text: 'Semua nilai yang belum disimpan akan direset',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#EF4444',
+                    cancelButtonColor: '#6B7280',
+                    confirmButtonText: 'Ya, Reset!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.querySelectorAll('.score-input').forEach(input => {
+                            input.value = '';
+                        });
+                        displayScores();
+                        Swal.fire('Direset!', 'Semua nilai telah direset.', 'success');
+                    }
+                });
+            });
+
+            // Event listeners
+            document.getElementById('class-filter').addEventListener('change', displayScores);
+            document.getElementById('test-date').valueAsDate = new Date();
+
+            // Initialize display
+            displayScores();
+        }
+    </script>
+</body>
+</html>
