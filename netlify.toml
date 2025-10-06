@@ -1,0 +1,15 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Enable Netlify Identity
+[build.environment]
+  NETLIFY_IDENTITY = "true"
+
+# Functions configuration
+[functions]
+  directory = "netlify/functions"
