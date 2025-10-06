@@ -609,7 +609,125 @@
             const messageEl = document.getElementById('db-status-message');
             
             statusEl.classList.remove('hidden');
-            
+        async function initializeMainApp() {
+    console.log('🔄 Initializing main app...');
+    
+    // Load data from database
+    await loadScoresFromDB();
+
+    // Debug info
+    console.log('📊 Peserta data:', pesertaData.length, 'records');
+    console.log('💾 Scores data:', Object.keys(scoresData).length, 'records');
+
+    // Grade Calculation
+    function calculateGrade(score) {
+        if (score >= 85) return 'A';
+        if (score >= 75) return 'B';
+        if (score >= 60) return 'C';
+        return 'D';
+    }
+
+    function getGradeClass(grade) {
+        switch(grade) {
+            case 'A': return 'grade-A';
+            case 'B': return 'grade-B';
+            case 'C': return 'grade-C';
+            case 'D': return 'grade-D';
+            default: return 'bg-gray-200 text-gray-800';
+        }
+    }
+
+    // Calculate average from 5 criteria
+    function calculateAverage(scores) {
+        const validScores = scores.filter(score => score >= 60 && score <= 100);
+        if (validScores.length === 0) return 0;
+        return validScores.reduce((a, b) => a + b, 0) / validScores.length;
+    }
+
+    // Filter and Display Data - MODIFIED VERSION
+    function displayScores() {
+        const classFilter = document.getElementById('class-filter').value;
+        const tableBody = document.getElementById('scores-table-body');
+        const emptyState = document.getElementById('empty-state');
+        
+        console.log('🎯 Displaying scores for class:', classFilter);
+        
+        // Filter data berdasarkan kelas jika dipilih
+        const filteredData = classFilter 
+            ? pesertaData.filter(peserta => peserta.kelas === classFilter)
+            : pesertaData; // Tampilkan semua jika tidak ada filter
+
+        console.log('📋 Filtered data:', filteredData.length, 'records');
+
+        if (filteredData.length === 0) {
+            tableBody.innerHTML = '';
+            emptyState.classList.remove('hidden');
+            document.getElementById('statistics').classList.add('hidden');
+            console.log('❌ No data to display');
+            return;
+        }
+
+        emptyState.classList.add('hidden');
+        document.getElementById('statistics').classList.remove('hidden');
+
+        tableBody.innerHTML = filteredData.map((peserta, index) => {
+            const existingScore = scoresData[peserta.username];
+            const scores = existingScore ? existingScore.scores : [0, 0, 0, 0, 0];
+            const average = calculateAverage(scores);
+            const grade = average > 0 ? calculateGrade(average) : '';
+            const gradeClass = grade ? getGradeClass(grade) : '';
+            const isLolos = average >= 85;
+
+            return `
+                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                    <td class="px-4 py-3">${index + 1}</td>
+                    <td class="px-4 py-3 font-mono">${peserta.username}</td>
+                    <td class="px-4 py-3">${peserta.nama}</td>
+                    <td class="px-4 py-3">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                            ${peserta.kelas}
+                        </span>
+                    </td>
+                    ${scores.map((score, i) => `
+                        <td class="px-2 py-3">
+                            <input type="number" 
+                                   min="60" 
+                                   max="100" 
+                                   value="${score || ''}"
+                                   data-username="${peserta.username}"
+                                   data-criteria="${i}"
+                                   class="score-input w-16 px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-center"
+                                   placeholder="0">
+                        </td>
+                    `).join('')}
+                    <td class="px-4 py-3 text-center font-semibold">
+                        <span class="average-display ${isLolos ? 'text-green-600' : 'text-gray-600'}">
+                            ${average > 0 ? average.toFixed(1) : '-'}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                        <span class="status-display px-2 py-1 rounded text-xs font-bold ${isLolos ? 'grade-A' : 'bg-gray-200 text-gray-800'}">
+                            ${isLolos ? 'LOLOS' : 'TIDAK'}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-center no-print">
+                        <button onclick="clearScore('${peserta.username}')" 
+                                class="text-red-600 hover:text-red-800 transition-colors">
+                            <i data-feather="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+
+        feather.replace();
+        updateStatistics();
+        attachInputListeners();
+        console.log('✅ Table updated with', filteredData.length, 'rows');
+    }
+
+    // ... (sisanya sama seperti sebelumnya)
+        }    
             const colors = {
                 loading: 'blue',
                 success: 'green',
@@ -634,105 +752,7 @@
             feather.replace();
         }
 
-        // Main Application Functions
-        async function initializeMainApp() {
-            // Load data from database
-            await loadScoresFromDB();
-
-            // Grade Calculation
-            function calculateGrade(score) {
-                if (score >= 85) return 'A';
-                if (score >= 75) return 'B';
-                if (score >= 60) return 'C';
-                return 'D';
-            }
-
-            function getGradeClass(grade) {
-                switch(grade) {
-                    case 'A': return 'grade-A';
-                    case 'B': return 'grade-B';
-                    case 'C': return 'grade-C';
-                    case 'D': return 'grade-D';
-                    default: return 'bg-gray-200 text-gray-800';
-                }
-            }
-
-            // Calculate average from 5 criteria
-            function calculateAverage(scores) {
-                const validScores = scores.filter(score => score >= 60 && score <= 100);
-                if (validScores.length === 0) return 0;
-                return validScores.reduce((a, b) => a + b, 0) / validScores.length;
-            }
-
-            // Filter and Display Data
-            function displayScores() {
-                const classFilter = document.getElementById('class-filter').value;
-                const tableBody = document.getElementById('scores-table-body');
-                const emptyState = document.getElementById('empty-state');
-                
-                const filteredData = pesertaData.filter(peserta => 
-                    !classFilter || peserta.kelas === classFilter
-                );
-
-                if (filteredData.length === 0) {
-                    tableBody.innerHTML = '';
-                    emptyState.classList.remove('hidden');
-                    document.getElementById('statistics').classList.add('hidden');
-                    return;
-                }
-
-                emptyState.classList.add('hidden');
-                document.getElementById('statistics').classList.remove('hidden');
-
-                tableBody.innerHTML = filteredData.map((peserta, index) => {
-                    const existingScore = scoresData[peserta.username];
-                    const scores = existingScore ? existingScore.scores : [0, 0, 0, 0, 0];
-                    const average = calculateAverage(scores);
-                    const grade = average > 0 ? calculateGrade(average) : '';
-                    const gradeClass = grade ? getGradeClass(grade) : '';
-                    const isLolos = average >= 85;
-
-                    return `
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="px-4 py-3">${index + 1}</td>
-                            <td class="px-4 py-3 font-mono">${peserta.username}</td>
-                            <td class="px-4 py-3">${peserta.nama}</td>
-                            <td class="px-4 py-3">${peserta.kelas}</td>
-                            ${scores.map((score, i) => `
-                                <td class="px-2 py-3">
-                                    <input type="number" 
-                                           min="60" 
-                                           max="100" 
-                                           value="${score || ''}"
-                                           data-username="${peserta.username}"
-                                           data-criteria="${i}"
-                                           class="score-input w-16 px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-center">
-                                </td>
-                            `).join('')}
-                            <td class="px-4 py-3 text-center font-semibold">
-                                <span class="average-display ${isLolos ? 'text-green-600' : 'text-gray-600'}">
-                                    ${average > 0 ? average.toFixed(1) : '-'}
-                                </span>
-                            </td>
-                            <td class="px-4 py-3 text-center">
-                                <span class="status-display px-2 py-1 rounded text-xs font-bold ${isLolos ? 'grade-A' : 'bg-gray-200 text-gray-800'}">
-                                    ${isLolos ? 'LOLOS' : 'TIDAK'}
-                                </span>
-                            </td>
-                            <td class="px-4 py-3 text-center no-print">
-                                <button onclick="clearScore('${peserta.username}')" 
-                                        class="text-red-600 hover:text-red-800 transition-colors">
-                                    <i data-feather="trash-2" class="w-4 h-4"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                }).join('');
-
-                feather.replace();
-                updateStatistics();
-                attachInputListeners();
-            }
+        
 
             // Attach input listeners
             function attachInputListeners() {
