@@ -1,6 +1,6 @@
 # Portal Website OSIM MTsN 3 Tulungagung 2025
 
-![OSIM Logo](https://osim.madsanega.web.id/assets/og-image.png)
+![OSIM Logo](https://zrivzo.github.io/assets/og-image.png)
 
 Portal resmi untuk rekrutmen Organisasi Siswa Intra Madrasah (OSIM) MTsN 3 Tulungagung tahun 2025.
 
