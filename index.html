@@ -101,7 +101,7 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center space-x-3">
-                    <img src="https://zrivzo.github.io/web-ossnega/assets/logofull.png" alt="OSIM Logo" class="max-h-16 w-auto">
+                    <img src="https://zrivzo.github.io/web-ossnega/assets/logofull.png" alt="OSIM Logo" class="max-h-12 w-auto">
                 </div>
 
                 <!-- Sidebar Toggle Button -->
@@ -150,6 +150,11 @@
             <a href="#data" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600 transition-colors">
                 <i data-feather="database" class="w-5 h-5"></i>
                 <span class="font-medium">Cek Data</span>
+            </a>
+            
+            <a href="#data" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600 transition-colors">
+                <i data-feather="announcement" class="w-5 h-5"></i>
+                <span class="font-medium">Pengumuman</span>
             </a>
         </nav>
         
@@ -221,8 +226,8 @@
                             <div class="text-left">
                                 <h3 class="text-lg font-bold text-amber-100 mb-2">INFORMASI PENTING</h3>
                                 <p class="text-amber-100">
-                                    <strong>Pengumuman Wawancara Tahap 1 akan segera dilaksanakan!</strong><br>
-                                    Pantau terus halaman ini, Jika telah melihat pengumuman tetap optimis apapun hasilnya, karena semuanya adalah yang terbaik.
+                                    <strong>Pengumuman Wawancara Tahap 1 akan sudah ada!</strong><br>
+                                    Lihat pengumuman dibagian paling bawah, tetap optimis apapun hasilnya, karena semuanya adalah yang terbaik.
                                 </p>
                             </div>
                         </div>
@@ -472,9 +477,10 @@
                                 </p>
                                 <ol class="list-decimal list-inside space-y-2 text-gray-600">
                                     <li><strong>Pendaftaran Online</strong> - Mengisi formulir pendaftaran</li>
-                                    <li><strong>Wawancara Tahap 1</strong> - Pengenalan dan motivasi</li>
-                                    <li><strong>Wawancara Tahap 2</strong> - Pemahaman tentang OSIM</li>
-                                    <li><strong>Wawancara Tahap 3</strong> - Penetapan akhir</li>
+                                    <li><strong>Wawancara Tahap 1</strong> - Awal bersama dengan Pengurus OSIM.</li>
+                                    <li><strong>Wawancara Tahap 2</strong> - Pertengahan wawancara dengan penguji.</li>
+                                    <li><strong>Wawancara Tahap 3</strong> - Seleksi Wawancara tahap akhir, dengan Pembina OSIM</li>
+                                    <li><strong>Pra-LDKS</strong> - Tes Akhir termasuk Tes Fisik & Mental</li>
                                 </ol>
                             </div>
                         </div>
@@ -492,9 +498,9 @@
                                     Persiapan yang perlu dilakukan:
                                 </p>
                                 <ul class="list-disc list-inside space-y-2 text-gray-600">
-                                    <li>Memahami visi misi OSIM MTsN 3 Tulungagung</li>
+                                    <li>Memahami visi misi Madrasah dan OSIM MTsN 3 Tulungagung</li>
                                     <li>Mempersiapkan motivasi bergabung dengan OSIM</li>
-                                    <li>Mengetahui jadwal sesi wawancara sesuai nomor peserta</li>
+                                    <li>Mengetahui jadwal sesi wawancara sesuai nomor peserta (Nomor ID)</li>
                                     <li>Berpakaian rapi dan sopan</li>
                                     <li>Datang tepat waktu sesuai jadwal yang ditentukan</li>
                                 </ul>
@@ -530,7 +536,7 @@
                             <a href="/pengumuman/wawancara1/index.html" 
                                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 card-hover">
                                 <i data-feather="bell"></i>
-                                <span>Pengumuman Hasil</span>
+                                <span>Lihat Pengumuman</span>
                             </a>
                         </div>
                         
@@ -545,6 +551,12 @@
                                         <a href="https://wa.me/6285790297754" class="font-semibold underline">Kak Yusfi (+62 857-9029-7754)</a>
                                     </p>
                                 </div>
+                                <div>
+                                    <p class="text-amber-700">
+                                        Jika laman ini mengalami kendala baik error maupun tidak dapat diakses, hubungi panitia:
+                                        <a href="https://wa.zone.id/zamzam" class="font-semibold underline">Zam Zam (wa.zone.id/zamzam)</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -557,7 +569,7 @@
     <footer class="bg-primary-950 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="flex justify-center items-center space-x-3 mb-4">
-                <img src="https://zrivzo.github.io/web-ossnega/assets/logofull.png" alt="OSIM Logo" class="w-auto h-auto">
+                <img src="https://zrivzo.github.io/web-ossnega/assets/logofull.png" alt="OSIM Logo" class="w-13 h-auto">
             </div>
             <p class="text-blue-200 mb-4 max-w-2xl mx-auto leading-relaxed">
                 Organisasi Siswa Intra Madrasah - Wadah Pengembangan Bakat, Kreativitas, dan Kepemimpinan Siswa
@@ -566,9 +578,35 @@
                 <p>© 2025 OSIM MTsN 3 TULUNGAGUNG - Sie Media dan IT</p>
             </div>
         </div>
+           <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+             <p class="text-sm">System by Zam Zam</p>
+                <div id="system-status" class="flex items-center space-x-2">
+                   <span>Status Sistem:</span>
+                   <span id="status-text" class="px-2 py-1 rounded font-semibold bg-green-600">Okey</span>
+                </div>
+           </div>
     </footer>
 
     <script>
+  function checkSystemStatus()
+    const isError = Math.random() < 0.3;
+    const statusText = document.getElementById("status-text");
+
+    if(isError) {
+      statusText.textContent = "Error!";
+      statusText.classList.remove("bg-green-600");
+      statusText.classList.add("bg-yellow-500");
+      alert("⚠️ Sistem ada masalah! Mohon periksa kembali.");
+    } else {
+      statusText.textContent = "Okey";
+      statusText.classList.remove("bg-yellow-500");
+      statusText.classList.add("bg-green-600");
+    }
+  }
+
+  setInterval(checkSystemStatus, 10000);
+        
+  checkSystemStatus();
         // Initialize Feather Icons
         feather.replace();
         
