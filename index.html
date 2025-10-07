@@ -550,13 +550,13 @@
                                         segera hubungi panitia: 
                                         <a href="https://wa.me/6285790297754" class="font-semibold underline">Kak Yusfi (+62 857-9029-7754)</a>
                                     </p>
-                                </div>
-                                <div>
+                                </div
+                            </div>
+                            <div>
                                     <p class="text-amber-700">
                                         Jika laman ini mengalami kendala baik error maupun tidak dapat diakses, hubungi panitia:
                                         <a href="https://wa.zone.id/zamzam" class="font-semibold underline">Zam Zam (wa.zone.id/zamzam)</a>
                                     </p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -579,7 +579,6 @@
             </div>
         </div>
            <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-             <p class="text-sm">System by Zam Zam</p>
                 <div id="system-status" class="flex items-center space-x-2">
                    <span>Status Sistem:</span>
                    <span id="status-text" class="px-2 py-1 rounded font-semibold bg-green-600">Okey</span>
@@ -588,25 +587,6 @@
     </footer>
 
     <script>
-  function checkSystemStatus()
-    const isError = Math.random() < 0.3;
-    const statusText = document.getElementById("status-text");
-
-    if(isError) {
-      statusText.textContent = "Error!";
-      statusText.classList.remove("bg-green-600");
-      statusText.classList.add("bg-yellow-500");
-      alert("⚠️ Sistem ada masalah! Mohon periksa kembali.");
-    } else {
-      statusText.textContent = "Okey";
-      statusText.classList.remove("bg-yellow-500");
-      statusText.classList.add("bg-green-600");
-    }
-  }
-
-  setInterval(checkSystemStatus, 10000);
-        
-  checkSystemStatus();
         // Initialize Feather Icons
         feather.replace();
         
@@ -773,6 +753,25 @@ faqItems.forEach(item => {
                 header.classList.remove('shadow-xl');
             }
         });
+        function checkSystemStatus()
+    const isError = Math.random() < 0.3;
+    const statusText = document.getElementById("status-text");
+
+    if(isError) {
+      statusText.textContent = "Error!";
+      statusText.classList.remove("bg-green-600");
+      statusText.classList.add("bg-yellow-500");
+      alert("⚠️ Sistem ada masalah! Mohon periksa kembali.");
+    } else {
+      statusText.textContent = "Okey";
+      statusText.classList.remove("bg-yellow-500");
+      statusText.classList.add("bg-green-600");
+    }
+  }
+
+  setInterval(checkSystemStatus, 10000);
+        
+  checkSystemStatus();
     </script>
 </body>
 </html>
