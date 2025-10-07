@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laman Resmi - Rekrutmen OSIM MTsN 3 Tulungagung 2025</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portal resmi rekrutmen OSIM MTsN 3 Tulungagung 2025/2026. Wadah pengembangan bakat dan kepemimpinan siswa.">
+    <meta name="keywords" content="OSIM, MTsN 3 Tulungagung, rekrutmen, organisasi siswa, kepemimpinan">
+    <meta name="author" content="OSIM MTsN 3 Tulungagung - Sie Media dan IT">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://zrivzo.github.io/web-ossnega/assets/favicon.ico">
+    
+    <!-- OG Image -->
+    <meta property="og:image" content="https://zrivzo.github.io/web-ossnega/assets/og-image.png">
+    <meta property="og:title" content="Rekrutmen OSIM MTsN 3 Tulungagung 2025">
+    <meta property="og:description" content="Wadah Pengembangan Bakat dan Kepemimpinan Siswa MTsN 3 Tulungagung">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'nunito': ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#13265C'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'pulse-slow': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #13265C 0%, #1e3a8a 100%);
+        }
+        
+        .dark .gradient-bg {
+            background: linear-gradient(135deg, #0d1a3a 0%, #152451 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .sidebar {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        
+        .gallery-slide {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .gallery-slide.active {
+            opacity: 1;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Focus styles for accessibility */
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        /* Skip to main content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #3b82f6;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .card-hover {
+                border: 2px solid;
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="font-nunito bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 scroll-smooth transition-colors duration-300">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Langsung ke konten utama</a>
+    
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="fixed bottom-6 right-6 z-30 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500" aria-label="Ubah tema">
+        <i data-feather="moon" class="text-gray-800 dark:text-yellow-300 hidden dark:block" aria-hidden="true"></i>
+        <i data-feather="sun" class="text-yellow-500 dark:hidden" aria-hidden="true"></i>
+    </button>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-20 right-6 z-50 max-w-sm bg-white dark:bg-gray-800 border-l-4 border-green-500 shadow-lg rounded-lg p-4 transform translate-x-full transition-transform duration-300" role="alert" aria-live="polite">
+        <div class="flex items-start">
+            <div class="flex-shrink-0">
+                <i data-feather="check-circle" class="text-green-500" aria-hidden="true"></i>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm font-medium text-gray-800 dark:text-gray-200" id="toast-message">Tindakan berhasil!</p>
+            </div>
+            <button id="toast-close" class="ml-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none" aria-label="Tutup notifikasi">
+                <i data-feather="x" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white dark:bg-gray-800 shadow-lg z-40 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="https://zrivzo.github.io/web-ossnega/assets/logofull.png" alt="Logo OSIM MTsN 3 Tulungagung" class="max-h-12 w-auto">
+                    <div class="hidden sm:block">
+                        <h1 class="text-lg font-bold text-primary-950 dark:text-white">OSIM MTsN 3 Tulungagung</h1>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">Rekrutmen 2025/2026</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8" aria-label="Navigasi utama">
+                    <a href="#home" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">Beranda</a>
+                    <a href="#timeline" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">Timeline</a>
+                    <a href="#gallery" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">Gallery</a>
+                    <a href="#info" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">Tentang</a>
+                    <a href="#faq" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">FAQ</a>
+                    <a href="#data" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">Pengumuman</a>
+                </nav>
+
+                <!-- Sidebar Toggle Button -->
+                <button id="sidebar-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors md:hidden" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="sidebar">
+                    <i data-feather="menu" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-800 shadow-2xl z-50 p-6 transition-colors duration-300" role="dialog" aria-modal="true" aria-label="Menu navigasi">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-xl font-bold text-primary-950 dark:text-white">Menu Navigasi</h2>
+            <button id="sidebar-close" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" aria-label="Tutup menu navigasi">
+                <i data-feather="x" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+        <nav class="space-y-4" aria-label="Navigasi sidebar">
+            <a href="#home" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i data-feather="home" class="w-5 h-5" aria-hidden="true"></i>
+                <span class="font-medium">Beranda</span>
+            </a>
+            
+            <a href="#timeline" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i data-feather="calendar" class="w-5 h-5" aria-hidden="true"></i>
+                <span class="font-medium">Timeline Seleksi</span>
+            </a>
+            
+            <a href="#gallery" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i data-feather="image" class="w-5 h-5" aria-hidden="true"></i>
+                <span class="font-medium">Gallery OSIM</span>
+            </a>
+            
+            <a href="#info" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i data-feather="info" class="w-5 h-5" aria-hidden="true"></i>
+                <span class="font-medium">Tentang OSIM</span>
+            </a>
+            
+            <a href="#faq" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i data-feather="help-circle" class="w-5 h-5" aria-hidden="true"></i>
+                <span class="font-medium">FAQ</span>
+            </a>
+            
+            <a href="#data" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i data-feather="database" class="w-5 h-5" aria-hidden="true"></i>
+                <span class="font-medium">Cek Data</span>
+            </a>
+            
+            <a href="#data" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i data-feather="announcement" class="w-5 h-5" aria-hidden="true"></i>
+                <span class="font-medium">Pengumuman</span>
+            </a>
+        </nav>
+        
+        <div class="absolute bottom-6 left-6 right-6">
+            <div class="border-t dark:border-gray-600 pt-4">
+                <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+                    © OSIM MTsN 3 TULUNGAGUNG<br>
+                    Sie Media dan IT 2025
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="pt-16">
+        <!-- Hero Section -->
+        <section id="home" class="gradient-bg text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="text-center animate-fade-in">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        Rekrutmen OSIM
+                        <span class="block text-blue-200">2025/2026</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                        Wadah Pengembangan Bakat dan Kepemimpinan Siswa MTsN 3 Tulungagung
+                    </p>
+                    
+                    <!-- Countdown Timer -->
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8 max-w-2xl mx-auto animate-slide-up">
+                        <h2 class="text-2xl font-bold mb-6 text-white flex items-center justify-center">
+                            <i data-feather="clock" class="mr-3" aria-hidden="true"></i>
+                            Pengumuman Wawancara Tahap 1
+                        </h2>
+                        <div class="grid grid-cols-4 gap-4">
+                            <div class="text-center">
+                                <div class="bg-white/20 rounded-lg p-4">
+                                    <div id="days" class="text-3xl font-bold text-white">00</div>
+                                    <div class="text-sm text-blue-200 mt-2">Hari</div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white/20 rounded-lg p-4">
+                                    <div id="hours" class="text-3xl font-bold text-white">00</div>
+                                    <div class="text-sm text-blue-200 mt-2">Jam</div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white/20 rounded-lg p-4">
+                                    <div id="minutes" class="text-3xl font-bold text-white">00</div>
+                                    <div class="text-sm text-blue-200 mt-2">Menit</div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white/20 rounded-lg p-4">
+                                    <div id="seconds" class="text-3xl font-bold text-white">00</div>
+                                    <div class="text-sm text-blue-200 mt-2">Detik</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alert Banner -->
+                    <div class="bg-amber-500/20 border border-amber-400/50 rounded-2xl p-6 mb-8 max-w-4xl mx-auto animate-pulse-slow">
+                        <div class="flex items-center justify-center">
+                            <i data-feather="alert-circle" class="text-amber-300 mr-4" aria-hidden="true"></i>
+                            <div class="text-left">
+                                <h3 class="text-lg font-bold text-amber-100 mb-2">INFORMASI PENTING</h3>
+                                <p class="text-amber-100">
+                                    <strong>Pengumuman Wawancara Tahap 1 akan sudah ada!</strong><br>
+                                    Lihat pengumuman dibagian paling bawah, tetap optimis apapun hasilnya, karena semuanya adalah yang terbaik.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="py-16 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-primary-950 dark:text-white mb-12">
+                    <i data-feather="calendar" class="inline mr-3" aria-hidden="true"></i>
+                    Timeline Proses Seleksi
+                </h2>
+                
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- Timeline Item -->
+                    <div class="flex items-start space-x-6 p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl transition-colors duration-300">
+                        <div class="flex-shrink-0 w-12 h-12 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
+                            <i data-feather="x-circle" class="text-red-600 dark:text-red-400" aria-hidden="true"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Tahap Pendaftaran</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-2">29 September - 4 Oktober 2024</p>
+                            <p class="text-gray-700 dark:text-gray-300">Pendaftaran calon pengurus OSIM periode 2025/2026 telah ditutup. Terima kasih atas partisipasinya.</p>
+                            <span class="inline-block bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-sm px-3 py-1 rounded-full mt-3">
+                                Telah Berakhir
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item -->
+                    <div class="flex items-start space-x-6 p-6 bg-green-50 dark:bg-green-900/20 rounded-2xl border-l-4 border-green-400 transition-colors duration-300">
+                        <div class="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center">
+                            <i data-feather="clock" class="text-green-600 dark:text-green-400" aria-hidden="true"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Wawancara Tahap 1</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-2">6 Oktober 2024 - Pukul 08:00 WIB</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Proses wawancara pertama untuk mengenal lebih dekat calon pengurus OSIM.</p>
+                            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg transition-colors duration-300">
+                                <h4 class="font-semibold text-green-800 dark:text-green-400 mb-3">📅 Pembagian Sesi Wawancara:</h4>
+                                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                                    <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded transition-colors duration-300">
+                                        <strong>Sesi 1</strong><br>
+                                        07.30-10.00<br>
+                                        <span class="text-green-700 dark:text-green-400">No. 1-40</span>
+                                    </div>
+                                    <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded transition-colors duration-300">
+                                        <strong>Sesi 2</strong><br>
+                                        10.45-11.50<br>
+                                        <span class="text-green-700 dark:text-green-400">No. 41-80</span>
+                                    </div>
+                                    <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded transition-colors duration-300">
+                                        <strong>Sesi 3</strong><br>
+                                        12.30-Selesai<br>
+                                        <span class="text-green-700 dark:text-green-400">No. 81-105</span>
+                                    </div>
+                                </div>
+                                <p class="text-green-700 dark:text-green-400 text-sm mt-3">
+                                    <i data-feather="info" class="inline w-4 h-4 mr-1" aria-hidden="true"></i>
+                                    Lihat nomor absen Anda di dokumen check-in yang telah dibagikan
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item -->
+                    <div class="flex items-start space-x-6 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-2xl transition-colors duration-300">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center">
+                            <i data-feather="calendar" class="text-blue-600 dark:text-blue-400" aria-hidden="true"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Wawancara Tahap 2</h3>
+                            <p class="text-gray-600 dark:text-gray-300">8 Oktober 2024</p>
+                            <p class="text-gray-700 dark:text-gray-300">Proses wawancara lanjutan untuk calon yang lolos tahap pertama.</p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item -->
+                    <div class="flex items-start space-x-6 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-2xl transition-colors duration-300">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center">
+                            <i data-feather="calendar" class="text-blue-600 dark:text-blue-400" aria-hidden="true"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Wawancara Tahap 3</h3>
+                            <p class="text-gray-600 dark:text-gray-300">9 Oktober 2024</p>
+                            <p class="text-gray-700 dark:text-gray-300">Wawancara akhir dan penetapan pengurus OSIM terpilih.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-16 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-primary-950 dark:text-white mb-12">
+                    <i data-feather="image" class="inline mr-3" aria-hidden="true"></i>
+                    Gallery Kegiatan OSIM
+                </h2>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-colors duration-300">
+                        <!-- Gallery Slider -->
+                        <div class="relative h-96 md:h-[500px]">
+                            <div class="gallery-slide active absolute inset-0 w-full h-full">
+                                <img src="https://zrivzo.github.io/web-ossnega/images/g1.webp" 
+                                     alt="Pelantikan Pengurus OSIM" 
+                                     class="w-full h-full object-cover">
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                    <h3 class="text-white text-xl font-bold">Pelantikan Pengurus OSIM</h3>
+                                    <p class="text-white/90">Momen serah terima jabatan pengurus OSIM periode baru</p>
+                                </div>
+                            </div>
+                            
+                            <div class="gallery-slide absolute inset-0 w-full h-full">
+                                <img src="https://zrivzo.github.io/web-ossnega/images/g2.webp" 
+                                     alt="Kegiatan Bakti Sosial" 
+                                     class="w-full h-full object-cover">
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                    <h3 class="text-white text-xl font-bold">Kegiatan Bakti Sosial</h3>
+                                    <p class="text-white/90">Program peduli lingkungan dan masyarakat sekitar</p>
+                                </div>
+                            </div>
+                            
+                            <div class="gallery-slide absolute inset-0 w-full h-full">
+                                <img src="https://zrivzo.github.io/web-ossnega/images/g6.webp" 
+                                     alt="Latihan Kepemimpinan" 
+                                     class="w-full h-full object-cover">
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                    <h3 class="text-white text-xl font-bold">Latihan Kepemimpinan</h3>
+                                    <p class="text-white/90">Pengembangan soft skills dan leadership skills</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Navigation Dots -->
+                        <div class="flex justify-center space-x-2 p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+                            <button class="gallery-dot w-3 h-3 bg-primary-600 rounded-full active" data-slide="0" aria-label="Tampilkan slide 1"></button>
+                            <button class="gallery-dot w-3 h-3 bg-gray-300 dark:bg-gray-600 rounded-full" data-slide="1" aria-label="Tampilkan slide 2"></button>
+                            <button class="gallery-dot w-3 h-3 bg-gray-300 dark:bg-gray-600 rounded-full" data-slide="2" aria-label="Tampilkan slide 3"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Section -->
+        <section id="info" class="py-16 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-primary-950 dark:text-white mb-12">
+                    <i data-feather="info" class="inline mr-3" aria-hidden="true"></i>
+                    Mengapa Bergabung dengan OSIM?
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Feature 1 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl p-8 card-hover text-center border border-gray-100 dark:border-gray-600 transition-all duration-300">
+                        <div class="w-16 h-16 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-feather="users" class="text-primary-600 dark:text-primary-400 text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Wadah Organisasi Resmi</h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            OSIM merupakan organisasi intra madrasah yang diakui secara resmi, memberikan pengalaman berorganisasi yang berharga bagi siswa.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl p-8 card-hover text-center border border-gray-100 dark:border-gray-600 transition-all duration-300">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-feather="award" class="text-green-600 dark:text-green-400 text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Pengembangan Karakter</h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Mengasah kemampuan kepemimpinan, public speaking, kerja sama tim, dan manajemen waktu melalui berbagai program kegiatan.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl p-8 card-hover text-center border border-gray-100 dark:border-gray-600 transition-all duration-300">
+                        <div class="w-16 h-16 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-feather="trending-up" class="text-purple-600 dark:text-purple-400 text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Jaringan dan Pengalaman</h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Membangun relasi dengan sesama siswa berprestasi dan mendapatkan pengalaman nyata dalam mengelola kegiatan madrasah.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-16 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-primary-950 dark:text-white mb-12">
+                    <i data-feather="help-circle" class="inline mr-3" aria-hidden="true"></i>
+                    Pertanyaan yang Sering Diajukan
+                </h2>
+                
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-colors duration-300">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" aria-expanded="false" aria-controls="faq-answer-1">
+                            <span class="font-semibold text-lg text-gray-800 dark:text-white">Apa itu OSIM dan apa fungsinya?</span>
+                            <i data-feather="chevron-down" class="text-primary-600 dark:text-primary-400 transition-transform" aria-hidden="true"></i>
+                        </button>
+                        <div class="faq-answer" id="faq-answer-1">
+                            <div class="p-6 pt-0 border-t dark:border-gray-700">
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                    OSIM (Organisasi Siswa Intra Madrasah) adalah organisasi siswa resmi di lingkungan MTsN 3 Tulungagung 
+                                    yang berfungsi sebagai wadah untuk menampung kreativitas, bakat, dan aspirasi siswa. OSIM bertugas 
+                                    mengkoordinasikan berbagai kegiatan siswa dan menjadi mitra madrasah dalam mewujudkan tujuan pendidikan.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-colors duration-300">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" aria-expanded="false" aria-controls="faq-answer-2">
+                            <span class="font-semibold text-lg text-gray-800 dark:text-white">Siapa yang bisa mengikuti rekrutmen OSIM?</span>
+                            <i data-feather="chevron-down" class="text-primary-600 dark:text-primary-400 transition-transform" aria-hidden="true"></i>
+                        </button>
+                        <div class="faq-answer" id="faq-answer-2">
+                            <div class="p-6 pt-0 border-t dark:border-gray-700">
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                    Rekrutmen OSIM terbuka untuk semua siswa/siswi kelas 7 dan 8 MTsN 3 Tulungagung yang memiliki 
+                                    semangat berorganisasi, komitmen tinggi, dan keinginan untuk berkontribusi dalam kemajuan madrasah.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-colors duration-300">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" aria-expanded="false" aria-controls="faq-answer-3">
+                            <span class="font-semibold text-lg text-gray-800 dark:text-white">Bagaimana proses seleksi OSIM?</span>
+                            <i data-feather="chevron-down" class="text-primary-600 dark:text-primary-400 transition-transform" aria-hidden="true"></i>
+                        </button>
+                        <div class="faq-answer" id="faq-answer-3">
+                            <div class="p-6 pt-0 border-t dark:border-gray-700">
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                                    Proses seleksi OSIM terdiri dari beberapa tahap:
+                                </p>
+                                <ol class="list-decimal list-inside space-y-2 text-gray-600 dark:text-gray-300">
+                                    <li><strong>Pendaftaran Online</strong> - Mengisi formulir pendaftaran</li>
+                                    <li><strong>Wawancara Tahap 1</strong> - Awal bersama dengan Pengurus OSIM.</li>
+                                    <li><strong>Wawancara Tahap 2</strong> - Pertengahan wawancara dengan penguji.</li>
+                                    <li><strong>Wawancara Tahap 3</strong> - Seleksi Wawancara tahap akhir, dengan Pembina OSIM</li>
+                                    <li><strong>Pra-LDKS</strong> - Tes Akhir termasuk Tes Fisik & Mental</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-colors duration-300">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" aria-expanded="false" aria-controls="faq-answer-4">
+                            <span class="font-semibold text-lg text-gray-800 dark:text-white">Apa yang harus dipersiapkan untuk wawancara?</span>
+                            <i data-feather="chevron-down" class="text-primary-600 dark:text-primary-400 transition-transform" aria-hidden="true"></i>
+                        </button>
+                        <div class="faq-answer" id="faq-answer-4">
+                            <div class="p-6 pt-0 border-t dark:border-gray-700">
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                                    Persiapan yang perlu dilakukan:
+                                </p>
+                                <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+                                    <li>Memahami visi misi Madrasah dan OSIM MTsN 3 Tulungagung</li>
+                                    <li>Mempersiapkan motivasi bergabung dengan OSIM</li>
+                                    <li>Mengetahui jadwal sesi wawancara sesuai nomor peserta (Nomor ID)</li>
+                                    <li>Berpakaian rapi dan sopan</li>
+                                    <li>Datang tepat waktu sesuai jadwal yang ditentukan</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Check Section -->
+        <section id="data" class="py-16 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-600 transition-colors duration-300">
+                        <h2 class="text-3xl font-bold text-center text-primary-950 dark:text-white mb-8">
+                            <i data-feather="database" class="inline mr-3" aria-hidden="true"></i>
+                            Portal Data & Pengumuman
+                        </h2>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-center mb-8 text-lg leading-relaxed">
+                            Akses informasi terkini mengenai proses rekrutmen OSIM melalui portal berikut. 
+                            Pantau terus untuk mendapatkan update terbaru.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <a href="recruitment/checkdata.html" 
+                               class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 card-hover"
+                               aria-label="Cek data peserta rekrutmen">
+                                <i data-feather="search" aria-hidden="true"></i>
+                                <span>Cek Data Peserta</span>
+                            </a>
+                            
+                            <a href="/pengumuman/wawancara1/index.html" 
+                               class="bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3 card-hover"
+                               aria-label="Lihat pengumuman rekrutmen">
+                                <i data-feather="bell" aria-hidden="true"></i>
+                                <span>Lihat Pengumuman</span>
+                            </a>
+                        </div>
+                        
+                        <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-6 transition-colors duration-300">
+                            <div class="flex items-start">
+                                <i data-feather="alert-triangle" class="text-amber-600 dark:text-amber-400 mt-1 mr-4" aria-hidden="true"></i>
+                                <div>
+                                    <h4 class="font-semibold text-amber-800 dark:text-amber-300 mb-2">Perhatian Penting</h4>
+                                    <p class="text-amber-700 dark:text-amber-300">
+                                        Jika mengalami kendala atau nama belum terdaftar dalam dokumen check-in, 
+                                        segera hubungi panitia: 
+                                        <a href="https://wa.me/6285790297754" class="font-semibold underline">Kak Yusfi (+62 857-9029-7754)</a>
+                                    </p>
+                                    <p class="text-amber-700 dark:text-amber-300 mt-2">
+                                        Jika laman ini mengalami kendala baik error maupun tidak dapat diakses, hubungi panitia:
+                                        <a href="https://wa.zone.id/zamzam" class="font-semibold underline">Zam Zam (wa.zone.id/zamzam)</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary-950 dark:bg-gray-900 text-white py-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex justify-center items-center space-x-3 mb-4">
+                <img src="https://zrivzo.github.io/web-ossnega/assets/logofull.png" alt="Logo OSIM MTsN 3 Tulungagung" class="w-13 h-auto">
+            </div>
+            <p class="text-blue-200 dark:text-blue-300 mb-4 max-w-2xl mx-auto leading-relaxed">
+                Organisasi Siswa Intra Madrasah - Wadah Pengembangan Bakat, Kreativitas, dan Kepemimpinan Siswa
+            </p>
+            <div class="text-blue-300 dark:text-blue-400 text-sm mb-6">
+                <p>© 2025 OSIM MTsN 3 TULUNGAGUNG - Sie Media dan IT</p>
+            </div>
+            
+            <!-- System Status -->
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                <div id="system-status" class="flex items-center space-x-2">
+                    <span>Status Sistem:</span>
+                    <span id="status-text" class="px-2 py-1 rounded font-semibold bg-green-600">Okey</span>
+                </div>
+                <div class="text-blue-300 dark:text-blue-400 text-xs">
+                    <p id="last-updated">Terakhir diperbarui: <span id="update-time"></span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Feather Icons with error handling
+        function initializeFeatherIcons() {
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            } else {
+                console.error('Feather Icons tidak dapat dimuat. Memuat ulang...');
+                // Fallback: Try to reload Feather Icons
+                const script = document.createElement('script');
+                script.src = 'https://unpkg.com/feather-icons';
+                script.onload = () => {
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                        showToast('Ikon berhasil dimuat ulang', 'success');
+                    } else {
+                        console.error('Gagal memuat Feather Icons setelah percobaan ulang');
+                        showToast('Ikon tidak dapat dimuat. Memperbarui halaman...', 'error');
+                        setTimeout(() => location.reload(), 3000);
+                    }
+                };
+                document.head.appendChild(script);
+            }
+        }
+
+        // Toast notification function
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            const toastIcon = toast.querySelector('i');
+            
+            // Set message and icon based on type
+            toastMessage.textContent = message;
+            
+            // Remove existing color classes
+            toast.classList.remove('border-green-500', 'border-red-500', 'border-blue-500', 'border-yellow-500');
+            
+            // Set color based on type
+            switch(type) {
+                case 'success':
+                    toast.classList.add('border-green-500');
+                    toastIcon.setAttribute('data-feather', 'check-circle');
+                    break;
+                case 'error':
+                    toast.classList.add('border-red-500');
+                    toastIcon.setAttribute('data-feather', 'x-circle');
+                    break;
+                case 'warning':
+                    toast.classList.add('border-yellow-500');
+                    toastIcon.setAttribute('data-feather', 'alert-triangle');
+                    break;
+                default:
+                    toast.classList.add('border-blue-500');
+                    toastIcon.setAttribute('data-feather', 'info');
+            }
+            
+            // Update feather icon
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+            
+            // Show toast
+            toast.classList.remove('translate-x-full');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                hideToast();
+            }, 5000);
+        }
+        
+        function hideToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('translate-x-full');
+        }
+        
+        // Close toast when close button is clicked
+        document.getElementById('toast-close').addEventListener('click', hideToast);
+
+        // Sidebar Functionality
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            sidebarBackdrop.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            sidebarToggle.setAttribute('aria-expanded', 'true');
+            showToast('Menu navigasi dibuka', 'info');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            sidebarBackdrop.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            sidebarToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        sidebarToggle.addEventListener('click', openSidebar);
+        sidebarClose.addEventListener('click', closeSidebar);
+        sidebarBackdrop.addEventListener('click', closeSidebar);
+
+        // Gallery Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.gallery-slide');
+        const dots = document.querySelectorAll('.gallery-dot');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+            
+            // Update aria-labels for accessibility
+            dots.forEach((dot, index) => {
+                if (index === n) {
+                    dot.setAttribute('aria-label', `Slide ${index + 1}, saat ini aktif`);
+                } else {
+                    dot.setAttribute('aria-label', `Tampilkan slide ${index + 1}`);
+                }
+            });
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                showToast(`Menampilkan gambar ${index + 1} dari ${slides.length}`, 'info');
+            });
+        });
+
+        // Auto slide gallery
+        let slideInterval = setInterval(() => {
+            let nextSlide = (currentSlide + 1) % slides.length;
+            showSlide(nextSlide);
+        }, 5000);
+
+        // Pause auto slide on hover
+        const galleryContainer = document.querySelector('.gallery-slide').parentElement;
+        galleryContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        galleryContainer.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(() => {
+                let nextSlide = (currentSlide + 1) % slides.length;
+                showSlide(nextSlide);
+            }, 5000);
+        });
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const icon = question.querySelector('i');
+            const answerId = question.getAttribute('aria-controls');
+            
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                
+                // Close all items
+                faqItems.forEach(faq => {
+                    faq.classList.remove('open');
+                    const faqQuestion = faq.querySelector('.faq-question');
+                    const faqIcon = faq.querySelector('.faq-question i');
+                    if (faqQuestion && faqIcon) {
+                        faqQuestion.setAttribute('aria-expanded', 'false');
+                        faqIcon.style.transform = 'rotate(0deg)';
+                    }
+                });
+                
+                // Open current item if it was closed
+                if (!isOpen) {
+                    item.classList.add('open');
+                    question.setAttribute('aria-expanded', 'true');
+                    if (icon) {
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                    showToast('Pertanyaan dibuka: ' + question.querySelector('span').textContent, 'info');
+                }
+            });
+        });
+
+        // Countdown Timer
+        function initializeCountdown() {
+            const targetDate = new Date('October 7, 2025 20:30:00 GMT+0700').getTime();
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+                
+                if (distance < 0) {
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    
+                    // Update status when countdown ends
+                    updateSystemStatus('Pengumuman telah tersedia!', 'success');
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // SweetAlert2 Notification on Load
+        function showWelcomeNotification() {
+            Swal.fire({
+                title: 'Pengumuman Penting',
+                html: `
+                    <div class="text-left">
+                        <p class="mb-4 text-gray-700 dark:text-gray-300"><strong>Pengumuman Seleksi Wawancara tahap 1 sudah tersedia.🎉</strong></p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                            Silahkan check pada bagian paling bawah website ini untuk menuju halamn pengecekan pengumuman, 
+                            Diperbolehkan untuk membuat video/konten tentang pengumuman ini, Asal mematuhi aturan sewajarnya.
+                        </p>
+                        <div class="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg">
+                            <p class="text-sm text-amber-800 dark:text-amber-300">
+                                <i data-feather="info" class="inline w-4 h-4 mr-1"></i>
+                                Pengumuman Wawancara tahap 1 pada <strong>pukul 7 Oktober 2025</strong>
+                            </p>
+                        </div>
+                    </div>
+                `,
+                icon: 'info',
+                confirmButtonText: 'Mengerti',
+                confirmButtonColor: '#13265C',
+                width: 500,
+                padding: '1.5rem'
+            });
+        }
+
+        // Smooth scrolling for sidebar links
+        document.querySelectorAll('#sidebar a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    closeSidebar();
+                    showToast(`Menuju ke ${this.textContent.trim()}`, 'info');
+                }
+            });
+        });
+
+        // Smooth scrolling for desktop navigation
+        document.querySelectorAll('header nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    showToast(`Menuju ke ${this.textContent.trim()}`, 'info');
+                }
+            });
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // Check for saved theme preference or respect OS preference
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            // Toggle theme
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                showToast('Mode terang diaktifkan', 'info');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                showToast('Mode gelap diaktifkan', 'info');
+            }
+            
+            // Update feather icons after theme change
+            initializeFeatherIcons();
+        });
+
+        // System status check
+        function updateSystemStatus(message, status) {
+            const statusText = document.getElementById('status-text');
+            const updateTime = document.getElementById('update-time');
+            
+            // Update status text
+            statusText.textContent = message;
+            
+            // Update status color
+            statusText.classList.remove('bg-green-600', 'bg-yellow-500', 'bg-red-600');
+            
+            switch(status) {
+                case 'success':
+                    statusText.classList.add('bg-green-600');
+                    break;
+                case 'warning':
+                    statusText.classList.add('bg-yellow-500');
+                    break;
+                case 'error':
+                    statusText.classList.add('bg-red-600');
+                    break;
+                default:
+                    statusText.classList.add('bg-green-600');
+            }
+            
+            // Update timestamp
+            const now = new Date();
+            updateTime.textContent = now.toLocaleTimeString('id-ID');
+        }
+
+        function checkSystemStatus() {
+            // Simulate system status check
+            const isError = Math.random() < 0.1; // 10% chance of error for demo
+            
+            if(isError) {
+                updateSystemStatus('Error!', 'error');
+                showToast('Sistem mengalami masalah kecil', 'warning');
+            } else {
+                updateSystemStatus('Okey', 'success');
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFeatherIcons();
+            initializeCountdown();
+            setTimeout(showWelcomeNotification, 1000);
+            checkSystemStatus();
+            
+            // Update system status every 30 seconds
+            setInterval(checkSystemStatus, 30000);
+            
+            // Update last updated time
+            updateSystemStatus('Okey', 'success');
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-xl');
+            } else {
+                header.classList.remove('shadow-xl');
+            }
+        });
+
+        // Add focus styles for keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-navigation');
+        });
+    </script>
+</body>
+</html>
