@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Seleksi OSIM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #13265C;
+            --secondary-color: #f8f9fa;
+            --accent-color: #e9ecef;
+            --text-color: #333;
+            --border-color: #dee2e6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+        
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom: 3px solid #ffc107;
+        }
+        
+        .tab:not(.active):hover {
+            background-color: var(--accent-color);
+        }
+        
+        .content {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .participant-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .participant-card {
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .participant-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .participant-card.lolos {
+            border-left-color: #28a745;
+        }
+        
+        .participant-card.tidak-lolos {
+            border-left-color: #dc3545;
+        }
+        
+        .participant-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .participant-details {
+            flex: 1;
+        }
+        
+        .participant-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .participant-username {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-lolos {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-tidak-lolos {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .search-container {
+            margin-bottom: 20px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(19, 38, 92, 0.2);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 14px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .participant-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://zrivzo.github.io/web-ossnega/assets/logo.png" alt="Logo OSIM">
+                </div>
+                <div>
+                    <h1>HASIL SELEKSI OSIM</h1>
+                    <div class="subtitle">Organisasi Siswa Intra Sekolah</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="total-peserta">108</div>
+                <div class="stat-label">Total Peserta</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="total-lolos">0</div>
+                <div class="stat-label">Lolos Seleksi</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="total-tidak-lolos">0</div>
+                <div class="stat-label">Tidak Lolos</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="semua">Semua Peserta</div>
+            <div class="tab" data-tab="lolos">Lolos Seleksi</div>
+            <div class="tab" data-tab="tidak-lolos">Tidak Lolos</div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Cari peserta berdasarkan nama atau username..." id="search-input">
+        </div>
+        
+        <div class="content active" id="semua">
+            <div class="participant-list" id="semua-list">
+                <!-- Data akan diisi oleh JavaScript -->
+            </div>
+        </div>
+        
+        <div class="content" id="lolos">
+            <div class="participant-list" id="lolos-list">
+                <!-- Data akan diisi oleh JavaScript -->
+            </div>
+        </div>
+        
+        <div class="content" id="tidak-lolos">
+            <div class="participant-list" id="tidak-lolos-list">
+                <!-- Data akan diisi oleh JavaScript -->
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 OSIM - Organisasi Siswa Intra Sekolah. Semua hak cipta dilindungi.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data peserta
+        const pesertaData = [
+            { "username": "001", "nama": "Muhammad Iqbal", "status": "Lolos" },
+            { "username": "002", "nama": "Nayra Azzahra", "status": "Tidak Lolos" },
+            { "username": "003", "nama": "Tasyakurnia", "status": "Tidak Lolos" },
+            { "username": "004", "nama": "Thalita Putri", "status": "Lolos" },
+            { "username": "005", "nama": "Mohammad Noval", "status": "Lolos" },
+            { "username": "006", "nama": "Muhammad Rofa'i", "status": "Lolos" },
+            { "username": "007", "nama": "Safa Aprilia", "status": "Lolos" },
+            { "username": "008", "nama": "Azzahra Eka", "status": "Tidak Lolos" },
+            { "username": "009", "nama": "Bellya Afika", "status": "Lolos" },
+            { "username": "010", "nama": "Frishka Ussisa", "status": "Lolos" },
+            { "username": "011", "nama": "Habibah Dewi", "status": "Tidak Lolos" },
+            { "username": "012", "nama": "Imelda Sesa", "status": "Lolos" },
+            { "username": "013", "nama": "Khaira Acyuta", "status": "Tidak Lolos" },
+            { "username": "014", "nama": "Luaiyin", "status": "Tidak Lolos" },
+            { "username": "015", "nama": "Muhammad Faaiq", "status": "Lolos" },
+            { "username": "016", "nama": "Muhammad Zidan", "status": "Lolos" },
+            { "username": "017", "nama": "Najuwa Adinda", "status": "Lolos" },
+            { "username": "018", "nama": "Ndaru Diyah", "status": "Tidak Lolos" },
+            { "username": "019", "nama": "Rahmatul Laili", "status": "Lolos" },
+            { "username": "020", "nama": "Risa Nur Meida", "status": "Lolos" },
+            { "username": "021", "nama": "Suci Dwi", "status": "Lolos" },
+            { "username": "022", "nama": "Vania Cahya", "status": "Lolos" },
+            { "username": "023", "nama": "Zhafira Khansa", "status": "Tidak Lolos" },
+            { "username": "024", "nama": "Ambar Zulfa", "status": "Lolos" },
+            { "username": "025", "nama": "Arka Arkhananta", "status": "Lolos" },
+            { "username": "026", "nama": "Aura Ayu", "status": "Tidak Lolos" },
+            { "username": "027", "nama": "Azzahra Syaila", "status": "Lolos" },
+            { "username": "028", "nama": "Balqis Amira", "status": "Lolos" },
+            { "username": "029", "nama": "Citra Zahrotus", "status": "Lolos" },
+            { "username": "030", "nama": "Feby Aulia", "status": "Lolos" },
+            { "username": "031", "nama": "Kenzie Attarrizky", "status": "Lolos" },
+            { "username": "032", "nama": "Muhammad Arzaky", "status": "Lolos" },
+            { "username": "033", "nama": "Muhammad Evan", "status": "Lolos" },
+            { "username": "034", "nama": "Nisrinna Rana", "status": "Lolos" },
+            { "username": "035", "nama": "Reihan Aima", "status": "Lolos" },
+            { "username": "036", "nama": "Satria Arka", "status": "Lolos" },
+            { "username": "037", "nama": "Zahira Adamma", "status": "Lolos" },
+            { "username": "038", "nama": "Afika Fadiya", "status": "Lolos" },
+            { "username": "039", "nama": "Anindy Cantika", "status": "Lolos" },
+            { "username": "040", "nama": "Azka Gibran", "status": "Lolos" },
+            { "username": "041", "nama": "Berliana Asyifa", "status": "Lolos" },
+            { "username": "042", "nama": "Chintya Bunga", "status": "Tidak Lolos" },
+            { "username": "043", "nama": "Cindy Putri", "status": "Lolos" },
+            { "username": "044", "nama": "Dwi Ayu", "status": "Tidak Lolos" },
+            { "username": "045", "nama": "Eva Latifatun", "status": "Tidak Lolos" },
+            { "username": "046", "nama": "Fajarina Eka", "status": "Lolos" },
+            { "username": "047", "nama": "Himma Muhibbatur", "status": "Lolos" },
+            { "username": "048", "nama": "Servino Agustino", "status": "Tidak Lolos" },
+            { "username": "049", "nama": "Aqila Putri", "status": "Tidak Lolos" },
+            { "username": "050", "nama": "Avika Tsania", "status": "Lolos" },
+            { "username": "051", "nama": "Caesya Tania", "status": "Tidak Lolos" },
+            { "username": "052", "nama": "Inggit Najwa", "status": "Lolos" },
+            { "username": "053", "nama": "Izzana Ulfi", "status": "Lolos" },
+            { "username": "054", "nama": "Moch Naufal", "status": "Lolos" },
+            { "username": "055", "nama": "Nila Khoirul", "status": "Lolos" },
+            { "username": "056", "nama": "Anindya Ayunda Sari", "status": "Lolos" },
+            { "username": "057", "nama": "Berlian Ayu", "status": "Lolos" },
+            { "username": "058", "nama": "Muhammad Waffa", "status": "Lolos" },
+            { "username": "059", "nama": "Muhammad Wafi", "status": "Lolos" },
+            { "username": "060", "nama": "Natasya Nur Alia", "status": "Lolos" },
+            { "username": "061", "nama": "Thoriq Ezar", "status": "Lolos" },
+            { "username": "062", "nama": "Afifah Rohmi", "status": "Lolos" },
+            { "username": "063", "nama": "Afika Nazilatuz", "status": "Tidak Lolos" },
+            { "username": "064", "nama": "Aurelia Zahrotul", "status": "Tidak Lolos" },
+            { "username": "065", "nama": "Caesar Dzaki", "status": "Lolos" },
+            { "username": "066", "nama": "Elsafa Septania", "status": "Tidak Lolos" },
+            { "username": "067", "nama": "Fitra Kurnia", "status": "Tidak Lolos" },
+            { "username": "068", "nama": "Keisha Azka", "status": "Lolos" },
+            { "username": "069", "nama": "Kevin Andika", "status": "Lolos" },
+            { "username": "070", "nama": "Lavinia Salsabila", "status": "Lolos" },
+            { "username": "071", "nama": "Muhammad Axel", "status": "Lolos" },
+            { "username": "072", "nama": "Muhammad Fatih", "status": "Lolos" },
+            { "username": "073", "nama": "Ratu Aqiela", "status": "Lolos" },
+            { "username": "074", "nama": "Shifa Ainun", "status": "Tidak Lolos" },
+            { "username": "075", "nama": "Tsanindya Samara", "status": "Tidak Lolos" },
+            { "username": "076", "nama": "Ahmad Rehan", "status": "Lolos" },
+            { "username": "077", "nama": "Dian Aisyah", "status": "Lolos" },
+            { "username": "078", "nama": "Dochi Aprilio", "status": "Lolos" },
+            { "username": "079", "nama": "Lintang Tryas", "status": "Tidak Lolos" },
+            { "username": "080", "nama": "Melisya Fanesa", "status": "Lolos" },
+            { "username": "081", "nama": "Muhammad Azmi", "status": "Tidak Lolos" },
+            { "username": "082", "nama": "Nayko Prastuti", "status": "Lolos" },
+            { "username": "083", "nama": "Zazang Elga", "status": "Tidak Lolos" },
+            { "username": "084", "nama": "Alya Dewina", "status": "Lolos" },
+            { "username": "085", "nama": "Anggita Najwa", "status": "Lolos" },
+            { "username": "086", "nama": "Arisca Mayfa", "status": "Tidak Lolos" },
+            { "username": "087", "nama": "Dea Tri", "status": "Tidak Lolos" },
+            { "username": "088", "nama": "Lis Farizarotul", "status": "Tidak Lolos" },
+            { "username": "089", "nama": "Mika Lusiana", "status": "Lolos" },
+            { "username": "090", "nama": "Muhammad Khanza", "status": "Lolos" },
+            { "username": "091", "nama": "Muhammad Zydan", "status": "Lolos" },
+            { "username": "092", "nama": "Naufal Aprilia", "status": "Tidak Lolos" },
+            { "username": "093", "nama": "Naura Khayla", "status": "Tidak Lolos" },
+            { "username": "094", "nama": "Pamela Cinta", "status": "Lolos" },
+            { "username": "095", "nama": "Syifa Khanza", "status": "Tidak Lolos" },
+            { "username": "096", "nama": "Tsania Lutfia", "status": "Tidak Lolos" },
+            { "username": "097", "nama": "Afika Nayla", "status": "Lolos" },
+            { "username": "098", "nama": "Iqbal Pradana", "status": "Tidak Lolos" },
+            { "username": "099", "nama": "Muhammad Handika", "status": "Tidak Lolos" },
+            { "username": "100", "nama": "Muhammad Razyazka", "status": "Tidak Lolos" },
+            { "username": "101", "nama": "Nabil Qiswa", "status": "Lolos" },
+            { "username": "102", "nama": "Qoirun Nikmah", "status": "Lolos" },
+            { "username": "103", "nama": "Rafael Kenzo", "status": "Tidak Lolos" },
+            { "username": "104", "nama": "Moch Julian", "status": "Lolos" },
+            { "username": "105", "nama": "Muhammad Nazril", "status": "Lolos" },
+            { "username": "106", "nama": "Muhammad Naufal Affandy", "status": "Lolos" },
+            { "username": "107", "nama": "Najib Nabihan", "status": "Lolos" },
+            { "username": "108", "nama": "Fahri Almustaqfi Billah", "status": "Lolos" }
+        ];
+
+        // Fungsi untuk membuat kartu peserta
+        function createParticipantCard(participant) {
+            const statusClass = participant.status === "Lolos" ? "lolos" : "tidak-lolos";
+            const statusBadgeClass = participant.status === "Lolos" ? "status-lolos" : "status-tidak-lolos";
+            
+            return `
+                <div class="participant-card ${statusClass}">
+                    <div class="participant-info">
+                        <div class="participant-details">
+                            <div class="participant-name">${participant.nama}</div>
+                            <div class="participant-username">@${participant.username}</div>
+                        </div>
+                        <div class="status-badge ${statusBadgeClass}">${participant.status}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Fungsi untuk menampilkan data
+        function displayData(data, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            if (data.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 20px; color: #6c757d;">Tidak ada data yang ditemukan</p>';
+                return;
+            }
+            
+            data.forEach(participant => {
+                container.innerHTML += createParticipantCard(participant);
+            });
+        }
+
+        // Fungsi untuk menghitung statistik
+        function updateStats() {
+            const totalPeserta = pesertaData.length;
+            const totalLolos = pesertaData.filter(p => p.status === "Lolos").length;
+            const totalTidakLolos = pesertaData.filter(p => p.status === "Tidak Lolos").length;
+            
+            document.getElementById('total-peserta').textContent = totalPeserta;
+            document.getElementById('total-lolos').textContent = totalLolos;
+            document.getElementById('total-tidak-lolos').textContent = totalTidakLolos;
+        }
+
+        // Fungsi untuk filter data berdasarkan pencarian
+        function filterData(searchTerm) {
+            return pesertaData.filter(participant => 
+                participant.nama.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                participant.username.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+
+        // Fungsi untuk inisialisasi
+        function init() {
+            // Tampilkan data awal
+            displayData(pesertaData, 'semua-list');
+            displayData(pesertaData.filter(p => p.status === "Lolos"), 'lolos-list');
+            displayData(pesertaData.filter(p => p.status === "Tidak Lolos"), 'tidak-lolos-list');
+            
+            // Update statistik
+            updateStats();
+            
+            // Tambahkan event listener untuk tab
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Hapus kelas active dari semua tab dan content
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+                    
+                    // Tambahkan kelas active ke tab yang diklik
+                    tab.classList.add('active');
+                    
+                    // Tampilkan content yang sesuai
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Tambahkan event listener untuk pencarian
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                const searchTerm = e.target.value.trim();
+                
+                if (searchTerm === '') {
+                    // Jika pencarian kosong, tampilkan semua data
+                    displayData(pesertaData, 'semua-list');
+                    displayData(pesertaData.filter(p => p.status === "Lolos"), 'lolos-list');
+                    displayData(pesertaData.filter(p => p.status === "Tidak Lolos"), 'tidak-lolos-list');
+                } else {
+                    // Filter data berdasarkan pencarian
+                    const filteredData = filterData(searchTerm);
+                    const filteredLolos = filteredData.filter(p => p.status === "Lolos");
+                    const filteredTidakLolos = filteredData.filter(p => p.status === "Tidak Lolos");
+                    
+                    displayData(filteredData, 'semua-list');
+                    displayData(filteredLolos, 'lolos-list');
+                    displayData(filteredTidakLolos, 'tidak-lolos-list');
+                }
+            });
+        }
+
+        // Jalankan inisialisasi ketika halaman dimuat
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
